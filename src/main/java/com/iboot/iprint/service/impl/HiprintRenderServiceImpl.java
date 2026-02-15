@@ -22,13 +22,13 @@
  * Author: tangsc.
  */
 
-package com.iboot.iprint.core.impl;
+package com.iboot.iprint.service.impl;
 
 import cn.hutool.core.io.resource.ResourceUtil;
 import com.github.f4b6a3.ulid.UlidCreator;
-import com.iboot.iprint.common.BusinessException;
-import com.iboot.iprint.core.HiprintRenderService;
-import com.iboot.iprint.dto.PrintTemplateRenderDTO;
+import com.iboot.iprint.exception.BusinessException;
+import com.iboot.iprint.service.HiprintRenderService;
+import com.iboot.iprint.model.request.RenderRequest;
 import com.iboot.iprint.util.WkhtmltopdfUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
@@ -69,15 +69,15 @@ public class HiprintRenderServiceImpl implements HiprintRenderService {
     /**
      * 生成打印预览 HTML。
      *
-     * @param printTemplateRenderDto 请求参数
+     * @param renderRequest 请求参数
      * @return 渲染后的 HTML 字符串
      */
     @Override
-    public String generateHtml(PrintTemplateRenderDTO printTemplateRenderDto) {
+    public String generateHtml(RenderRequest renderRequest) {
         // 这里要调用两次 toJsonStr 否则 JS 脚本执行失败
-        String tplData = objectMapper.writeValueAsString(printTemplateRenderDto.getTplData());
+        String tplData = objectMapper.writeValueAsString(renderRequest.getTplData());
         tplData = objectMapper.writeValueAsString(tplData);
-        String printData = objectMapper.writeValueAsString(printTemplateRenderDto.getPrintData());
+        String printData = objectMapper.writeValueAsString(renderRequest.getPrintData());
         printData = objectMapper.writeValueAsString(printData);
 
         String script =
@@ -143,16 +143,16 @@ public class HiprintRenderServiceImpl implements HiprintRenderService {
 
     @SneakyThrows
     @Override
-    public File generatePdfByWkhtml2Pdf(PrintTemplateRenderDTO printTemplateRenderDto) {
+    public File generatePdfByWkhtml2Pdf(RenderRequest renderRequest) {
         Path pdfPath = Files.createTempFile("pdf", UlidCreator.getUlid().toLowerCase() + ".pdf");
-        String html = this.generateHtml(printTemplateRenderDto);
+        String html = this.generateHtml(renderRequest);
         // wkhtmltopdf 使用旧版 QtWebKit，不支持 SVG 2.0 的 href 属性
         // 需要将 href="#xxx" 转换为 xlink:href="#xxx" 以兼容二维码渲染
         html = html.replaceAll("href=\"(#[^\"]+)\"", "xlink:href=\"$1\"");
 
         // 提取 hiprint 的 宽高
         @SuppressWarnings("unchecked")
-        List<Map<String, Object>> panels = (List<Map<String, Object>>) printTemplateRenderDto.getTplData().get("panels");
+        List<Map<String, Object>> panels = (List<Map<String, Object>>) renderRequest.getTplData().get("panels");
         int width = 210; // 默认 A4 宽度
         int height = 297; // 默认 A4 高度
         if (panels != null && !panels.isEmpty()) {

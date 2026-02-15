@@ -1,7 +1,7 @@
 package com.iboot.iprint.service;
 
-import com.iboot.iprint.common.BusinessException;
-import com.iboot.iprint.dto.ChangePasswordRequest;
+import com.iboot.iprint.exception.BusinessException;
+import com.iboot.iprint.model.request.ChangePasswordRequest;
 import com.iboot.iprint.entity.User;
 import com.iboot.iprint.repository.UserRepository;
 import lombok.RequiredArgsConstructor;

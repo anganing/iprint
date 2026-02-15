@@ -72,13 +72,19 @@ PostgreSQL 17，连接信息：`localhost:5432/iboot_iprint`，`postgres/123456`
 
 ### 后端 `com.iboot.iprint`
 - `config/` — SecurityConfig（双重认证）、CacheConfig（Caffeine）、WebConfig（CORS + SPA）
-- `controller/` — AuthController（登录/注销/改密）、ApiKeyController（CRUD）
-- `service/` — UserService、ApiKeyService（含缓存同步）、CustomUserDetailsService
+- `security/` — ApiKeyAuthFilter（API Key 认证过滤器）
+- `controller/` — AuthController（登录/注销/改密）、ApiKeyController（CRUD）、PrintTemplateController（模版 CRUD）、HiprintRenderEngineController（渲染引擎）
+- `service/` — UserService、ApiKeyService（含缓存同步）、PrintTemplateService、HiprintRenderService、CustomUserDetailsService
+- `service/impl/` — HiprintRenderServiceImpl（Hiprint 服务端渲染引擎实现）
+- `converter/` — ApiKeyConverter、PrintTemplateConverter（实体与响应对象转换）
+- `model/request/` — LoginRequest、ChangePasswordRequest、ApiKeyRequest、PrintTemplateRequest、RenderRequest
+- `model/response/` — UserInfoResponse、ApiKeyResponse、PrintTemplateResponse
 - `repository/` — JPA Repository 接口
-- `entity/` — User、ApiKey（映射 sys_user、sys_api_key）
-- `dto/` — 请求/响应 DTO
-- `common/` — R（统一响应）、GlobalExceptionHandler、BusinessException、ApiKeyAuthFilter
+- `entity/` — BaseEntity（公共基类）、User、ApiKey、PrintTemplate（映射 sys_user、sys_api_key、sys_print_template）
+- `result/` — ApiResult（统一响应封装）
+- `exception/` — BusinessException、GlobalExceptionHandler
 - `enums/` — ApiKeyStatus
+- `util/` — WkhtmltopdfUtil（PDF 生成工具）
 
 ### 安全模型
 - **管理员 Web 认证**：Session-based，通过 `/api/auth/login` 登录
@@ -97,15 +103,25 @@ PostgreSQL 17，连接信息：`localhost:5432/iboot_iprint`，`postgres/123456`
 - `POST /api/auth/logout` — 注销
 - `GET /api/auth/info` — 当前用户信息
 - `PUT /api/auth/password` — 修改密码
-- `GET /api/keys` — 列表
-- `POST /api/keys` — 创建
-- `PUT /api/keys/{id}` — 更新
-- `DELETE /api/keys/{id}` — 删除
+- `GET /api/keys` — API Key 列表
+- `POST /api/keys` — 创建 API Key
+- `PUT /api/keys/{id}` — 更新 API Key
+- `DELETE /api/keys/{id}` — 删除 API Key
+- `GET /api/templates` — 打印模版列表
+- `GET /api/templates/{id}` — 打印模版详情
+- `POST /api/templates` — 创建打印模版
+- `PUT /api/templates/{id}` — 更新打印模版
+- `DELETE /api/templates/{id}` — 删除打印模版
+- `POST /api/engine/generateHtml` — 生成打印预览 HTML
+- `POST /api/engine/generatePdf` — 生成打印 PDF
+- `GET /api/engine/version` — 获取 Hiprint 版本号
 
 ## Code Conventions
 
 - 使用 Lombok 注解（`@Data`, `@Builder`, `@RequiredArgsConstructor` 等）
-- 统一响应格式 `R<T>`：`{ code, message, data }`
-- 业务异常使用 `BusinessException`，由 `GlobalExceptionHandler` 统一捕获
+- 统一响应格式 `ApiResult<T>`：`{ code, message, data }`
+- 业务异常使用 `BusinessException`（`exception` 包），由 `GlobalExceptionHandler` 统一捕获
+- 实体类继承 `BaseEntity`（公共 id、createdAt、updatedAt）
+- 实体与响应对象转换通过 `converter/` 包中的 Converter 类完成
 - 前端 Axios 拦截器统一处理 code !== 200 和 401 跳转
 - 源文件编码 UTF-8

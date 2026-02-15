@@ -1,4 +1,4 @@
-package com.iboot.iprint.dto;
+package com.iboot.iprint.model.request;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;

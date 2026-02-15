@@ -1,8 +1,9 @@
 package com.iboot.iprint.service;
 
-import com.iboot.iprint.common.BusinessException;
-import com.iboot.iprint.dto.PrintTemplateRequest;
-import com.iboot.iprint.dto.PrintTemplateResponse;
+import com.iboot.iprint.converter.PrintTemplateConverter;
+import com.iboot.iprint.exception.BusinessException;
+import com.iboot.iprint.model.request.PrintTemplateRequest;
+import com.iboot.iprint.model.response.PrintTemplateResponse;
 import com.iboot.iprint.entity.PrintTemplate;
 import com.iboot.iprint.repository.PrintTemplateRepository;
 import lombok.RequiredArgsConstructor;
@@ -19,15 +20,16 @@ import java.util.stream.Collectors;
 public class PrintTemplateService {
 
     private final PrintTemplateRepository printTemplateRepository;
+    private final PrintTemplateConverter printTemplateConverter;
 
     public List<PrintTemplateResponse> listAll() {
         return printTemplateRepository.findAll().stream()
-                .map(this::toResponse)
+                .map(printTemplateConverter::toResponse)
                 .collect(Collectors.toList());
     }
 
     public PrintTemplateResponse getById(Long id) {
-        return toResponse(printTemplateRepository.findById(id)
+        return printTemplateConverter.toResponse(printTemplateRepository.findById(id)
                 .orElseThrow(() -> new BusinessException("打印模版不存在")));
     }
 
@@ -44,7 +46,7 @@ public class PrintTemplateService {
                 .build();
         printTemplateRepository.save(entity);
         log.info("打印模版已创建: code={}", entity.getCode());
-        return toResponse(entity);
+        return printTemplateConverter.toResponse(entity);
     }
 
     @Transactional
@@ -64,7 +66,7 @@ public class PrintTemplateService {
         entity.setPrintData(request.getPrintData());
         printTemplateRepository.save(entity);
         log.info("打印模版已更新: id={}", id);
-        return toResponse(entity);
+        return printTemplateConverter.toResponse(entity);
     }
 
     @Transactional
@@ -73,17 +75,5 @@ public class PrintTemplateService {
                 .orElseThrow(() -> new BusinessException("打印模版不存在"));
         printTemplateRepository.delete(entity);
         log.info("打印模版已删除: id={}", id);
-    }
-
-    private PrintTemplateResponse toResponse(PrintTemplate entity) {
-        return PrintTemplateResponse.builder()
-                .id(entity.getId())
-                .code(entity.getCode())
-                .name(entity.getName())
-                .templateData(entity.getTemplateData())
-                .printData(entity.getPrintData())
-                .createdAt(entity.getCreatedAt())
-                .updatedAt(entity.getUpdatedAt())
-                .build();
     }
 }

@@ -1,9 +1,9 @@
 package com.iboot.iprint.controller;
 
-import com.iboot.iprint.common.R;
-import com.iboot.iprint.dto.ChangePasswordRequest;
-import com.iboot.iprint.dto.LoginRequest;
-import com.iboot.iprint.dto.UserInfoResponse;
+import com.iboot.iprint.result.ApiResult;
+import com.iboot.iprint.model.request.ChangePasswordRequest;
+import com.iboot.iprint.model.request.LoginRequest;
+import com.iboot.iprint.model.response.UserInfoResponse;
 import com.iboot.iprint.entity.User;
 import com.iboot.iprint.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -33,7 +33,7 @@ public class AuthController {
             new HttpSessionSecurityContextRepository();
 
     @PostMapping("/login")
-    public R<UserInfoResponse> login(@RequestBody @Valid LoginRequest request,
+    public ApiResult<UserInfoResponse> login(@RequestBody @Valid LoginRequest request,
                                      HttpServletRequest httpRequest,
                                      HttpServletResponse httpResponse) {
         Authentication auth = authenticationManager.authenticate(
@@ -48,29 +48,29 @@ public class AuthController {
         securityContextRepository.saveContext(context, httpRequest, httpResponse);
 
         User user = userService.getByUsername(request.getUsername());
-        return R.ok(UserInfoResponse.builder()
+        return ApiResult.ok(UserInfoResponse.builder()
                 .id(user.getId())
                 .username(user.getUsername())
                 .build());
     }
 
     @GetMapping("/info")
-    public R<UserInfoResponse> info() {
+    public ApiResult<UserInfoResponse> info() {
         String username = SecurityContextHolder.getContext()
                 .getAuthentication().getName();
         User user = userService.getByUsername(username);
-        return R.ok(UserInfoResponse.builder()
+        return ApiResult.ok(UserInfoResponse.builder()
                 .id(user.getId())
                 .username(user.getUsername())
                 .build());
     }
 
     @PutMapping("/password")
-    public R<Void> changePassword(@RequestBody @Valid ChangePasswordRequest request) {
+    public ApiResult<Void> changePassword(@RequestBody @Valid ChangePasswordRequest request) {
         String username = SecurityContextHolder.getContext()
                 .getAuthentication().getName();
         userService.changePassword(username, request);
-        return R.ok();
+        return ApiResult.ok();
     }
 
     // 注销由 Spring Security 的 LogoutFilter 处理，见 SecurityConfig

@@ -1,8 +1,8 @@
 package com.iboot.iprint.controller;
 
-import com.iboot.iprint.common.R;
-import com.iboot.iprint.dto.PrintTemplateRequest;
-import com.iboot.iprint.dto.PrintTemplateResponse;
+import com.iboot.iprint.result.ApiResult;
+import com.iboot.iprint.model.request.PrintTemplateRequest;
+import com.iboot.iprint.model.response.PrintTemplateResponse;
 import com.iboot.iprint.service.PrintTemplateService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -18,29 +18,29 @@ public class PrintTemplateController {
     private final PrintTemplateService printTemplateService;
 
     @GetMapping
-    public R<List<PrintTemplateResponse>> list() {
-        return R.ok(printTemplateService.listAll());
+    public ApiResult<List<PrintTemplateResponse>> list() {
+        return ApiResult.ok(printTemplateService.listAll());
     }
 
     @GetMapping("/{id}")
-    public R<PrintTemplateResponse> get(@PathVariable Long id) {
-        return R.ok(printTemplateService.getById(id));
+    public ApiResult<PrintTemplateResponse> get(@PathVariable Long id) {
+        return ApiResult.ok(printTemplateService.getById(id));
     }
 
     @PostMapping
-    public R<PrintTemplateResponse> create(@RequestBody @Valid PrintTemplateRequest request) {
-        return R.ok(printTemplateService.create(request));
+    public ApiResult<PrintTemplateResponse> create(@RequestBody @Valid PrintTemplateRequest request) {
+        return ApiResult.ok(printTemplateService.create(request));
     }
 
     @PutMapping("/{id}")
-    public R<PrintTemplateResponse> update(@PathVariable Long id,
+    public ApiResult<PrintTemplateResponse> update(@PathVariable Long id,
                                            @RequestBody @Valid PrintTemplateRequest request) {
-        return R.ok(printTemplateService.update(id, request));
+        return ApiResult.ok(printTemplateService.update(id, request));
     }
 
     @DeleteMapping("/{id}")
-    public R<Void> delete(@PathVariable Long id) {
+    public ApiResult<Void> delete(@PathVariable Long id) {
         printTemplateService.delete(id);
-        return R.ok();
+        return ApiResult.ok();
     }
 }

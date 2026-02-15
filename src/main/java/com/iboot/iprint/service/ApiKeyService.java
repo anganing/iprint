@@ -1,9 +1,10 @@
 package com.iboot.iprint.service;
 
 import com.github.benmanes.caffeine.cache.Cache;
-import com.iboot.iprint.common.BusinessException;
-import com.iboot.iprint.dto.ApiKeyRequest;
-import com.iboot.iprint.dto.ApiKeyResponse;
+import com.iboot.iprint.converter.ApiKeyConverter;
+import com.iboot.iprint.exception.BusinessException;
+import com.iboot.iprint.model.request.ApiKeyRequest;
+import com.iboot.iprint.model.response.ApiKeyResponse;
 import com.iboot.iprint.entity.ApiKey;
 import com.iboot.iprint.enums.ApiKeyStatus;
 import com.iboot.iprint.repository.ApiKeyRepository;
@@ -23,10 +24,11 @@ public class ApiKeyService {
 
     private final ApiKeyRepository apiKeyRepository;
     private final Cache<String, Boolean> apiKeyCache;
+    private final ApiKeyConverter apiKeyConverter;
 
     public List<ApiKeyResponse> listAll() {
         return apiKeyRepository.findAll().stream()
-                .map(this::toResponse)
+                .map(apiKeyConverter::toResponse)
                 .collect(Collectors.toList());
     }
 
@@ -48,7 +50,7 @@ public class ApiKeyService {
 
         log.info("API Key 已创建: name={}, key={}...", entity.getName(),
                 key.substring(0, 8));
-        return toResponse(entity);
+        return apiKeyConverter.toResponse(entity);
     }
 
     @Transactional
@@ -69,7 +71,7 @@ public class ApiKeyService {
         }
 
         log.info("API Key 已更新: id={}", id);
-        return toResponse(entity);
+        return apiKeyConverter.toResponse(entity);
     }
 
     @Transactional
@@ -91,17 +93,5 @@ public class ApiKeyService {
                     + UUID.randomUUID().toString().replace("-", "").substring(0, 16);
         } while (apiKeyRepository.existsByApiKey(key));
         return key;
-    }
-
-    private ApiKeyResponse toResponse(ApiKey entity) {
-        return ApiKeyResponse.builder()
-                .id(entity.getId())
-                .name(entity.getName())
-                .apiKey(entity.getApiKey())
-                .status(entity.getStatus())
-                .description(entity.getDescription())
-                .createdAt(entity.getCreatedAt())
-                .updatedAt(entity.getUpdatedAt())
-                .build();
     }
 }

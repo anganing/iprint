@@ -1,4 +1,4 @@
-package com.iboot.iprint.common;
+package com.iboot.iprint.exception;
 
 import lombok.Getter;
 

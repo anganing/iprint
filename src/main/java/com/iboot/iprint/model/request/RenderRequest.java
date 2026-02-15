@@ -22,35 +22,19 @@
  * Author: tangsc.
  */
 
-package com.iboot.iprint.core;
+package com.iboot.iprint.model.request;
 
-import com.iboot.iprint.dto.PrintTemplateRenderDTO;
-import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
+import lombok.Data;
 
-import java.io.File;
+import java.util.List;
+import java.util.Map;
 
-public interface HiprintRenderService {
-  /**
-   * 生成打印预览 HTML。
-   *
-   * @param printTemplateRenderDto 请求参数
-   * @return 渲染后的 HTML 字符串
-   */
-  String generateHtml(PrintTemplateRenderDTO printTemplateRenderDto);
+@Data
+public class RenderRequest {
+    @NotNull(message = "模版内容不能为空")
+    private Map<String, Object> tplData;
 
-  /**
-   * 获取 Hiprint 版本号。
-   *
-   * @return Hiprint 版本号字符串
-   */
-  String getHiprintVersion();
-
-  /**
-   * 生成 PDF
-   *
-   * @param printTemplateRenderDto
-   * @return
-   */
-  File generatePdfByWkhtml2Pdf(@Valid PrintTemplateRenderDTO printTemplateRenderDto);
-
+    @NotNull(message = "打印数据不能为空")
+    private List<Map<String, Object>> printData;
 }

@@ -1,4 +1,4 @@
-package com.iboot.iprint.common;
+package com.iboot.iprint.security;
 
 import com.github.benmanes.caffeine.cache.Cache;
 import com.iboot.iprint.enums.ApiKeyStatus;

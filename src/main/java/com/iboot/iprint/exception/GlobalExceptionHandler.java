@@ -1,5 +1,6 @@
-package com.iboot.iprint.common;
+package com.iboot.iprint.exception;
 
+import com.iboot.iprint.result.ApiResult;
 import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -16,45 +17,45 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public R<?> handleValidation(MethodArgumentNotValidException e) {
+    public ApiResult<?> handleValidation(MethodArgumentNotValidException e) {
         String msg = e.getBindingResult().getFieldErrors().stream()
                 .map(f -> f.getField() + ": " + f.getDefaultMessage())
                 .reduce((a, b) -> a + "; " + b)
                 .orElse("参数校验失败");
         log.warn("参数校验错误: {}", msg);
-        return R.fail(400, msg);
+        return ApiResult.fail(400, msg);
     }
 
     @ExceptionHandler(ConstraintViolationException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public R<?> handleConstraint(ConstraintViolationException e) {
+    public ApiResult<?> handleConstraint(ConstraintViolationException e) {
         log.warn("约束违反: {}", e.getMessage());
-        return R.fail(400, e.getMessage());
+        return ApiResult.fail(400, e.getMessage());
     }
 
     @ExceptionHandler(BadCredentialsException.class)
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
-    public R<?> handleBadCredentials(BadCredentialsException e) {
-        return R.fail(401, "用户名或密码错误");
+    public ApiResult<?> handleBadCredentials(BadCredentialsException e) {
+        return ApiResult.fail(401, "用户名或密码错误");
     }
 
     @ExceptionHandler(AccessDeniedException.class)
     @ResponseStatus(HttpStatus.FORBIDDEN)
-    public R<?> handleAccessDenied(AccessDeniedException e) {
-        return R.fail(403, "访问被拒绝");
+    public ApiResult<?> handleAccessDenied(AccessDeniedException e) {
+        return ApiResult.fail(403, "访问被拒绝");
     }
 
     @ExceptionHandler(BusinessException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public R<?> handleBusiness(BusinessException e) {
+    public ApiResult<?> handleBusiness(BusinessException e) {
         log.warn("业务异常: {}", e.getMessage());
-        return R.fail(e.getCode(), e.getMessage());
+        return ApiResult.fail(e.getCode(), e.getMessage());
     }
 
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public R<?> handleGeneral(Exception e) {
+    public ApiResult<?> handleGeneral(Exception e) {
         log.error("系统异常", e);
-        return R.fail(500, "服务器内部错误");
+        return ApiResult.fail(500, "服务器内部错误");
     }
 }

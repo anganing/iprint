@@ -24,7 +24,7 @@
 
 package com.iboot.iprint.util;
 
-import com.iboot.iprint.common.BusinessException;
+import com.iboot.iprint.exception.BusinessException;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.BufferedReader;

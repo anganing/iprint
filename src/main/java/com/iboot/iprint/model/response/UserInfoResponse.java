@@ -1,4 +1,4 @@
-package com.iboot.iprint.dto;
+package com.iboot.iprint.model.response;
 
 import lombok.Builder;
 import lombok.Data;

@@ -1,7 +1,7 @@
 package com.iboot.iprint.config;
 
-import com.iboot.iprint.common.ApiKeyAuthFilter;
-import com.iboot.iprint.common.R;
+import com.iboot.iprint.security.ApiKeyAuthFilter;
+import com.iboot.iprint.result.ApiResult;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -76,23 +76,23 @@ public class SecurityConfig {
                 .exceptionHandling(ex -> ex
                         .authenticationEntryPoint((request, response, authException) ->
                                 writeJson(response, HttpServletResponse.SC_UNAUTHORIZED,
-                                        R.fail(401, "未登录或认证已过期")))
+                                        ApiResult.fail(401, "未登录或认证已过期")))
                         .accessDeniedHandler((request, response, accessDeniedException) ->
                                 writeJson(response, HttpServletResponse.SC_FORBIDDEN,
-                                        R.fail(403, "访问被拒绝")))
+                                        ApiResult.fail(403, "访问被拒绝")))
                 )
 
                 // 注销配置：返回 JSON 而非重定向
                 .logout(logout -> logout
                         .logoutUrl("/api/auth/logout")
                         .logoutSuccessHandler((request, response, authentication) ->
-                                writeJson(response, HttpServletResponse.SC_OK, R.ok()))
+                                writeJson(response, HttpServletResponse.SC_OK, ApiResult.ok()))
                 );
 
         return http.build();
     }
 
-    private void writeJson(HttpServletResponse response, int status, R<?> result) throws java.io.IOException {
+    private void writeJson(HttpServletResponse response, int status, ApiResult<?> result) throws java.io.IOException {
         response.setStatus(status);
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
         response.setCharacterEncoding("UTF-8");
