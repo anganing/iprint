@@ -16,9 +16,24 @@ export interface ApiKeyParams {
   status: number
 }
 
+export interface PageData<T> {
+  content: T[]
+  totalElements: number
+  totalPages: number
+  page: number
+  size: number
+}
+
+export interface ApiKeyQuery {
+  page?: number
+  size?: number
+  keyword?: string
+  status?: number | null
+}
+
 export const apiKeyApi = {
-  list() {
-    return http.get<any, { code: number; message: string; data: ApiKeyItem[] }>('/keys')
+  list(params: ApiKeyQuery = {}) {
+    return http.get<any, { code: number; message: string; data: PageData<ApiKeyItem> }>('/keys', { params })
   },
   create(data: ApiKeyParams) {
     return http.post<any, { code: number; message: string; data: ApiKeyItem }>('/keys', data)

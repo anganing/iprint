@@ -1,2 +1,15 @@
 @import "tailwindcss";
-@plugin "daisyui";
+@plugin "daisyui" {
+  themes: corporate --default;
+}
+
+@theme {
+  --color-primary-focus: #1d4ed8;
+  --color-page-bg: #f8fafc;
+  --color-sidebar-border: #e2e8f0;
+  --color-nav-hover: #f1f5f9;
+  --color-nav-active-bg: #eff6ff;
+  --color-nav-active-border: #2563eb;
+  --color-nav-text: #64748b;
+  --color-nav-text-active: #2563eb;
+}

@@ -3,6 +3,7 @@ package com.iboot.iprint.service;
 import com.iboot.iprint.converter.PrintTemplateConverter;
 import com.iboot.iprint.exception.BusinessException;
 import com.iboot.iprint.model.request.PrintTemplateRequest;
+import com.iboot.iprint.model.request.RenderRequest;
 import com.iboot.iprint.model.response.PrintTemplateResponse;
 import com.iboot.iprint.entity.PrintTemplate;
 import com.iboot.iprint.repository.PrintTemplateRepository;
@@ -10,8 +11,14 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import tools.jackson.databind.ObjectMapper;
+
+import com.iboot.iprint.model.response.PageResult;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -21,11 +28,22 @@ public class PrintTemplateService {
 
     private final PrintTemplateRepository printTemplateRepository;
     private final PrintTemplateConverter printTemplateConverter;
+    private final ObjectMapper objectMapper;
 
     public List<PrintTemplateResponse> listAll() {
         return printTemplateRepository.findAll().stream()
                 .map(printTemplateConverter::toResponse)
                 .collect(Collectors.toList());
+    }
+
+    public PageResult<PrintTemplateResponse> listPage(String keyword, int page, int size) {
+        Page<PrintTemplate> pageData = printTemplateRepository.findByKeyword(
+                keyword, PageRequest.of(page - 1, size));
+        List<PrintTemplateResponse> content = pageData.getContent().stream()
+                .map(printTemplateConverter::toResponse)
+                .collect(Collectors.toList());
+        return PageResult.of(content, pageData.getTotalElements(),
+                pageData.getTotalPages(), page, size);
     }
 
     public PrintTemplateResponse getById(Long id) {
@@ -75,5 +93,19 @@ public class PrintTemplateService {
                 .orElseThrow(() -> new BusinessException("打印模版不存在"));
         printTemplateRepository.delete(entity);
         log.info("打印模版已删除: id={}", id);
+    }
+
+    @SuppressWarnings("unchecked")
+    public RenderRequest buildRenderRequest(String code, List<Map<String, Object>> printData) {
+        PrintTemplate entity = printTemplateRepository.findByCode(code)
+                .orElseThrow(() -> new BusinessException("模版不存在: " + code));
+        if (entity.getTemplateData() == null || entity.getTemplateData().isBlank()) {
+            throw new BusinessException("模版数据为空: " + code);
+        }
+        Map<String, Object> tplData = objectMapper.readValue(entity.getTemplateData(), Map.class);
+        RenderRequest renderRequest = new RenderRequest();
+        renderRequest.setTplData(tplData);
+        renderRequest.setPrintData(printData);
+        return renderRequest;
     }
 }

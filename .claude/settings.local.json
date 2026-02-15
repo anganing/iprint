@@ -24,7 +24,10 @@
       "Bash(findstr:*)",
       "WebFetch(domain:itnext.io)",
       "WebFetch(domain:www.embedpdf.com)",
-      "Bash(pnpm add:*)"
+      "Bash(pnpm add:*)",
+      "Skill(ui-ux-pro-max)",
+      "Bash(python:*)",
+      "Bash(./mvnw.cmd clean compile:*)"
     ]
   }
 }

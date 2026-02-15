@@ -13,16 +13,16 @@ const router = createRouter({
       path: '/',
       component: () => import('../components/Layout.vue'),
       children: [
-        { path: '', redirect: '/api-keys' },
-        {
-          path: 'api-keys',
-          name: 'ApiKeys',
-          component: () => import('../views/ApiKeys.vue')
-        },
+        { path: '', redirect: '/templates' },
         {
           path: 'templates',
           name: 'PrintTemplates',
           component: () => import('../views/PrintTemplates.vue')
+        },
+        {
+          path: 'api-keys',
+          name: 'ApiKeys',
+          component: () => import('../views/ApiKeys.vue')
         },
         {
           path: 'change-password',

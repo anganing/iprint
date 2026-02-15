@@ -17,9 +17,23 @@ export interface PrintTemplateParams {
   printData: string
 }
 
+export interface PageData<T> {
+  content: T[]
+  totalElements: number
+  totalPages: number
+  page: number
+  size: number
+}
+
+export interface PrintTemplateQuery {
+  page?: number
+  size?: number
+  keyword?: string
+}
+
 export const printTemplateApi = {
-  list() {
-    return http.get<any, { code: number; message: string; data: PrintTemplateItem[] }>('/templates')
+  list(params: PrintTemplateQuery = {}) {
+    return http.get<any, { code: number; message: string; data: PageData<PrintTemplateItem> }>('/templates', { params })
   },
   get(id: number) {
     return http.get<any, { code: number; message: string; data: PrintTemplateItem }>(`/templates/${id}`)

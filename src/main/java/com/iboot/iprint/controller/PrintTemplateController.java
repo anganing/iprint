@@ -3,12 +3,11 @@ package com.iboot.iprint.controller;
 import com.iboot.iprint.result.ApiResult;
 import com.iboot.iprint.model.request.PrintTemplateRequest;
 import com.iboot.iprint.model.response.PrintTemplateResponse;
+import com.iboot.iprint.model.response.PageResult;
 import com.iboot.iprint.service.PrintTemplateService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/templates")
@@ -18,8 +17,11 @@ public class PrintTemplateController {
     private final PrintTemplateService printTemplateService;
 
     @GetMapping
-    public ApiResult<List<PrintTemplateResponse>> list() {
-        return ApiResult.ok(printTemplateService.listAll());
+    public ApiResult<PageResult<PrintTemplateResponse>> list(
+            @RequestParam(defaultValue = "1") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(required = false) String keyword) {
+        return ApiResult.ok(printTemplateService.listPage(keyword, page, size));
     }
 
     @GetMapping("/{id}")

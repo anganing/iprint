@@ -3,12 +3,11 @@ package com.iboot.iprint.controller;
 import com.iboot.iprint.result.ApiResult;
 import com.iboot.iprint.model.request.ApiKeyRequest;
 import com.iboot.iprint.model.response.ApiKeyResponse;
+import com.iboot.iprint.model.response.PageResult;
 import com.iboot.iprint.service.ApiKeyService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/keys")
@@ -18,8 +17,12 @@ public class ApiKeyController {
     private final ApiKeyService apiKeyService;
 
     @GetMapping
-    public ApiResult<List<ApiKeyResponse>> list() {
-        return ApiResult.ok(apiKeyService.listAll());
+    public ApiResult<PageResult<ApiKeyResponse>> list(
+            @RequestParam(defaultValue = "1") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(required = false) String keyword,
+            @RequestParam(required = false) Integer status) {
+        return ApiResult.ok(apiKeyService.listPage(keyword, status, page, size));
     }
 
     @PostMapping

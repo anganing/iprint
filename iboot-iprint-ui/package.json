@@ -12,6 +12,7 @@
     "@embedpdf/vue-pdf-viewer": "^2.6.0",
     "axios": "^1.9.0",
     "pinia": "^3.0.0",
+    "vanilla-jsoneditor": "^3.11.0",
     "vue": "^3.5.0",
     "vue-router": "^4.5.0"
   },

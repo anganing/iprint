@@ -26,7 +26,9 @@ package com.iboot.iprint.controller;
 
 import com.iboot.iprint.result.ApiResult;
 import com.iboot.iprint.service.HiprintRenderService;
+import com.iboot.iprint.service.PrintTemplateService;
 import com.iboot.iprint.model.request.RenderRequest;
+import com.iboot.iprint.model.request.TemplateRenderRequest;
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
@@ -43,6 +45,7 @@ import java.nio.charset.StandardCharsets;
 @RequestMapping("/api/engine")
 public class HiprintRenderEngineController {
     @Resource private HiprintRenderService hiprintRenderService;
+    @Resource private PrintTemplateService printTemplateService;
 
     /**
      * 生成打印预览 HTML。
@@ -100,5 +103,31 @@ public class HiprintRenderEngineController {
     @GetMapping("/version")
     public ApiResult<String> getHiprintVersion() {
         return ApiResult.ok(hiprintRenderService.getHiprintVersion());
+    }
+
+    /**
+     * 通过模版编码 + 打印数据生成 HTML。
+     *
+     * @param request 包含模版编码和打印数据的请求对象
+     * @param response HTTP 响应对象
+     */
+    @PostMapping("/render/html")
+    public void renderHtmlByCode(@RequestBody @Valid TemplateRenderRequest request,
+                                 HttpServletResponse response) throws IOException {
+        RenderRequest renderRequest = printTemplateService.buildRenderRequest(request.getCode(), request.getPrintData());
+        generateHtml(renderRequest, response);
+    }
+
+    /**
+     * 通过模版编码 + 打印数据生成 PDF。
+     *
+     * @param request 包含模版编码和打印数据的请求对象
+     * @param response HTTP 响应对象
+     */
+    @PostMapping("/render/pdf")
+    public void renderPdfByCode(@RequestBody @Valid TemplateRenderRequest request,
+                                HttpServletResponse response) throws IOException {
+        RenderRequest renderRequest = printTemplateService.buildRenderRequest(request.getCode(), request.getPrintData());
+        generatePdf(renderRequest, response);
     }
 }
