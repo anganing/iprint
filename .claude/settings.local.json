@@ -1,0 +1,28 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git -C D:/iboot-pro/iboot-iprint log --oneline --all)",
+      "Bash(git -C D:/iboot-pro/iboot-iprint remote -v)",
+      "Bash(git -C D:/iboot-pro/iboot-iprint diff --staged)",
+      "WebSearch",
+      "WebFetch(domain:deepwiki.com)",
+      "WebFetch(domain:github.com)",
+      "Bash(.mvnw.cmd compile -q)",
+      "Bash(./mvnw compile:*)",
+      "Bash(pnpm create vite iboot-iprint-ui --template vue)",
+      "Bash(pnpm --version)",
+      "Bash(node:*)",
+      "Bash(pnpm create vite@latest iboot-iprint-ui --template vue)",
+      "Bash(pnpm create:*)",
+      "Bash(pushd:*)",
+      "Bash(popd)",
+      "Bash(pnpm install)",
+      "Bash(pnpm approve-builds esbuild)",
+      "Bash(dir:*)",
+      "Bash(cd:*)",
+      "Bash(.mvnw.cmd dependency:tree -Dincludes=*jackson*)",
+      "Bash(findstr:*)",
+      "WebFetch(domain:itnext.io)"
+    ]
+  }
+}

@@ -1,0 +1,36 @@
+spring:
+  application:
+    name: iboot-iprint
+
+  # PostgreSQL 数据源
+  datasource:
+    url: jdbc:postgresql://localhost:5432/iboot_iprint
+    username: postgres
+    password: 123456
+    driver-class-name: org.postgresql.Driver
+
+  # JPA / Hibernate
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    open-in-view: false
+    properties:
+      hibernate:
+        format_sql: true
+
+  # Jackson 序列化配置
+  jackson:
+    default-property-inclusion: non_null
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: Asia/Shanghai
+
+server:
+  port: 8080
+  servlet:
+    context-path: /
+
+logging:
+  level:
+    root: INFO
+    com.iboot.iprint: DEBUG
