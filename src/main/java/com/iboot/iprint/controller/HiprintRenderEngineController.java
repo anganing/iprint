@@ -30,13 +30,14 @@ import com.iboot.iprint.model.request.RenderRequest;
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
-import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 
 @RestController
 @RequestMapping("/api/engine")
@@ -46,18 +47,24 @@ public class HiprintRenderEngineController {
     /**
      * 生成打印预览 HTML。
      *
-     * <p>接收打印模板和数据，生成可用于预览的 HTML 内容。该方法会对输入参数进行验证， 确保必要的数据都已提供。
+     * <p>接收打印模板和数据，生成可用于预览的 HTML 内容，以文件流形式返回。
      *
      * @param renderRequest 包含模板内容和打印数据的请求对象
-     * @return 生成的 HTML 字符串
-     * @throws IllegalArgumentException 当请求参数为空或必要字段缺失时
+     * @param response HTTP 响应对象
      */
     @PostMapping("/generateHtml")
-    public ApiResult<String> generateHtml(@RequestBody @Valid RenderRequest renderRequest) throws IOException {
+    public void generateHtml(@RequestBody @Valid RenderRequest renderRequest,
+                             HttpServletResponse response) throws IOException {
         String html = hiprintRenderService.generateHtml(renderRequest);
-        // 将html写入一个文件
-        FileUtils.writeStringToFile(new File("hiprint.html"), html, "UTF-8");
-        return ApiResult.ok(html);
+        byte[] htmlBytes = html.getBytes(StandardCharsets.UTF_8);
+
+        response.setContentType("text/html; charset=UTF-8");
+        response.setHeader("Content-Disposition", "inline; filename=hiprint.html");
+        response.setContentLengthLong(htmlBytes.length);
+
+        try (ByteArrayInputStream bis = new ByteArrayInputStream(htmlBytes)) {
+            IOUtils.copy(bis, response.getOutputStream());
+        }
     }
 
     /**
@@ -72,13 +79,16 @@ public class HiprintRenderEngineController {
     public void generatePdf(@RequestBody @Valid RenderRequest renderRequest,
                             HttpServletResponse response) throws IOException {
         File file = hiprintRenderService.generatePdfByWkhtml2Pdf(renderRequest);
+        try {
+            response.setContentType("application/pdf");
+            response.setHeader("Content-Disposition", "attachment; filename=" + file.getName());
+            response.setContentLengthLong(file.length());
 
-        response.setContentType("application/pdf");
-        response.setHeader("Content-Disposition", "attachment; filename=" + file.getName());
-        response.setContentLengthLong(file.length());
-
-        try (FileInputStream fis = new FileInputStream(file)) {
-            IOUtils.copy(fis, response.getOutputStream());
+            try (FileInputStream fis = new FileInputStream(file)) {
+                IOUtils.copy(fis, response.getOutputStream());
+            }
+        } finally {
+            file.delete();
         }
     }
 

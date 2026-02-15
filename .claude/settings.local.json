@@ -22,7 +22,9 @@
       "Bash(cd:*)",
       "Bash(.mvnw.cmd dependency:tree -Dincludes=*jackson*)",
       "Bash(findstr:*)",
-      "WebFetch(domain:itnext.io)"
+      "WebFetch(domain:itnext.io)",
+      "WebFetch(domain:www.embedpdf.com)",
+      "Bash(pnpm add:*)"
     ]
   }
 }
