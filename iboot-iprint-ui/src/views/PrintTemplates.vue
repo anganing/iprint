@@ -79,6 +79,10 @@
             <td class="text-sm text-base-content/50">{{ item.createdAt }}</td>
             <td>
               <div class="flex gap-1">
+                <button class="btn btn-ghost btn-xs gap-1 text-primary hover:bg-primary/10 cursor-pointer" @click="openDesigner(item)" title="打开设计器">
+                  <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+                  设计
+                </button>
                 <button class="btn btn-ghost btn-xs gap-1 cursor-pointer hover:bg-base-200" @click="showCurlModal(item)" title="查看调用示例">
                   <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
                   curl
@@ -214,6 +218,7 @@
 
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
 import { printTemplateApi, type PrintTemplateItem, type PageData } from '../api/printTemplate'
 import { engineApi } from '../api/engine'
 import { useToastStore } from '../stores/toast'
@@ -221,6 +226,7 @@ import { PDFViewer } from '@embedpdf/vue-pdf-viewer'
 import JsonEditor from '../components/JsonEditor.vue'
 
 const toast = useToastStore()
+const router = useRouter()
 
 const pageData = ref<PageData<PrintTemplateItem>>({ content: [], totalElements: 0, totalPages: 0, page: 1, size: 10 })
 const currentPage = ref(1)
@@ -413,5 +419,9 @@ async function copyCurl() {
   } catch {
     toast.showError('复制失败')
   }
+}
+
+function openDesigner(item: PrintTemplateItem) {
+  router.push(`/templates/${item.id}/design`)
 }
 </script>

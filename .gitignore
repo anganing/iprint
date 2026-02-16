@@ -35,3 +35,6 @@ build/
 ### Frontend ###
 iboot-iprint-ui/node_modules/
 iboot-iprint-ui/dist/
+
+vue-plugin-hiprint/dist
+vue-plugin-hiprint/node_modules

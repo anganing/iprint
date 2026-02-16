@@ -41,6 +41,11 @@ const router = createRouter({
       ]
     },
     {
+      path: '/templates/:id/design',
+      name: 'TemplateDesign',
+      component: () => import('../views/TemplateDesign.vue')
+    },
+    {
       path: '/:pathMatch(.*)*',
       name: 'NotFound',
       component: () => import('../views/NotFound.vue')

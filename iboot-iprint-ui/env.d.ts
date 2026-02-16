@@ -5,3 +5,11 @@ declare module '*.vue' {
   const component: DefineComponent<{}, {}, any>
   export default component
 }
+
+declare module 'jquery'
+declare module '@anganing/vue-plugin-hiprint'
+
+interface Window {
+  jQuery: any
+  $: any
+}
