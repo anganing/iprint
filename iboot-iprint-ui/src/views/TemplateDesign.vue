@@ -59,11 +59,11 @@
     </header>
 
     <!-- 主体三栏布局 -->
-    <div class="flex flex-1 min-h-0">
+    <div class="flex flex-1 min-h-0" @mousemove="onResizeMove" @mouseup="onResizeEnd" @mouseleave="onResizeEnd">
       <!-- 左侧：拖拽元素面板 -->
-      <div class="w-52 bg-white border-r border-sidebar-border overflow-y-auto shrink-0 p-3">
+      <div v-show="leftPanelOpen" class="bg-white overflow-y-auto shrink-0 p-3" :style="{ width: leftPanelWidth + 'px' }">
         <h3 class="text-xs font-semibold text-base-content/50 uppercase mb-3">拖拽元素</h3>
-        <div class="space-y-1.5">
+        <div class="grid grid-cols-2 gap-1.5">
           <a class="ep-draggable-item" tid="defaultModule.text">
             <span class="hiprint-icon">T</span>
             <span class="hiprint-label">文本</span>
@@ -98,8 +98,8 @@
             <span class="hiprint-icon">Tc</span>
             <span class="hiprint-label">自定义文本</span>
           </a>
-          <div class="pt-2 mt-2 border-t border-sidebar-border">
-            <h3 class="text-xs font-semibold text-base-content/50 uppercase mb-2">辅助元素</h3>
+          <div class="col-span-2 pt-2 mt-1 border-t border-sidebar-border">
+            <h3 class="text-xs font-semibold text-base-content/50 uppercase mb-1">辅助元素</h3>
           </div>
           <a class="ep-draggable-item" tid="defaultModule.hline">
             <span class="hiprint-icon">&#8212;</span>
@@ -121,8 +121,8 @@
             </span>
             <span class="hiprint-label">椭圆</span>
           </a>
-          <div class="pt-2 mt-2 border-t border-sidebar-border">
-            <h3 class="text-xs font-semibold text-base-content/50 uppercase mb-2">条码</h3>
+          <div class="col-span-2 pt-2 mt-1 border-t border-sidebar-border">
+            <h3 class="text-xs font-semibold text-base-content/50 uppercase mb-1">条码</h3>
           </div>
           <a class="ep-draggable-item" tid="defaultModule.barcode">
             <span class="hiprint-icon">
@@ -139,6 +139,13 @@
         </div>
       </div>
 
+      <!-- 左侧分隔条：拖拽调整 + 收起展开 -->
+      <div class="panel-resizer" @mousedown.prevent="startResize('left', $event)">
+        <button class="panel-resizer-btn" @click.stop="leftPanelOpen = !leftPanelOpen" :title="leftPanelOpen ? '收起' : '展开'">
+          <svg class="w-3 h-3 transition-transform" :class="{ 'rotate-180': !leftPanelOpen }" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+      </div>
+
       <!-- 中间：设计画布 -->
       <div class="flex-1 overflow-auto bg-base-200/30" id="hiprint-printTemplate-wrapper">
         <div v-if="loading" class="flex items-center justify-center h-full">
@@ -148,8 +155,15 @@
         <div id="hiprint-printTemplate" class="hiprint-printTemplate"></div>
       </div>
 
+      <!-- 右侧分隔条：拖拽调整 + 收起展开 -->
+      <div class="panel-resizer" @mousedown.prevent="startResize('right', $event)">
+        <button class="panel-resizer-btn" @click.stop="rightPanelOpen = !rightPanelOpen" :title="rightPanelOpen ? '收起' : '展开'">
+          <svg class="w-3 h-3 transition-transform" :class="{ 'rotate-180': !rightPanelOpen }" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+      </div>
+
       <!-- 右侧：属性设置面板 -->
-      <div class="w-64 bg-white border-l border-sidebar-border overflow-y-auto shrink-0">
+      <div v-show="rightPanelOpen" class="bg-white overflow-y-auto shrink-0" :style="{ width: rightPanelWidth + 'px' }">
         <div class="p-3">
           <h3 class="text-xs font-semibold text-base-content/50 uppercase mb-3">元素属性</h3>
           <div id="PrintElementOptionSetting"></div>
@@ -166,10 +180,6 @@
             <button class="btn btn-sm btn-ghost gap-1" @click="handlePrint">
               <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
               打印
-            </button>
-            <button class="btn btn-sm btn-ghost gap-1" @click="handleToPdf">
-              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
-              导出PDF
             </button>
             <button class="btn btn-sm btn-ghost" @click="previewModalRef?.close()">
               <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
@@ -203,6 +213,49 @@ const paperSize = ref('A4')
 const customWidth = ref(210)
 const customHeight = ref(297)
 const previewModalRef = ref<HTMLDialogElement>()
+const leftPanelOpen = ref(true)
+const rightPanelOpen = ref(true)
+
+// 面板拖拽调整宽度
+const PANEL_MIN_WIDTH = 160
+const PANEL_MAX_WIDTH = 480
+const leftPanelWidth = ref(PANEL_MAX_WIDTH)
+const rightPanelWidth = ref(PANEL_MAX_WIDTH)
+let resizing: 'left' | 'right' | null = null
+let resizeStartX = 0
+let resizeStartWidth = 0
+
+function startResize(side: 'left' | 'right', e: MouseEvent) {
+  resizing = side
+  resizeStartX = e.clientX
+  resizeStartWidth = side === 'left' ? leftPanelWidth.value : rightPanelWidth.value
+  document.body.style.cursor = 'col-resize'
+  document.body.style.userSelect = 'none'
+}
+
+function onResizeMove(e: MouseEvent) {
+  if (!resizing) return
+  const delta = e.clientX - resizeStartX
+  let newWidth: number
+  if (resizing === 'left') {
+    newWidth = resizeStartWidth + delta
+  } else {
+    newWidth = resizeStartWidth - delta
+  }
+  newWidth = Math.max(PANEL_MIN_WIDTH, Math.min(PANEL_MAX_WIDTH, newWidth))
+  if (resizing === 'left') {
+    leftPanelWidth.value = newWidth
+  } else {
+    rightPanelWidth.value = newWidth
+  }
+}
+
+function onResizeEnd() {
+  if (!resizing) return
+  resizing = null
+  document.body.style.cursor = ''
+  document.body.style.userSelect = ''
+}
 
 let templateId: number
 let templateItem: PrintTemplateItem | null = null
@@ -372,11 +425,7 @@ function handlePrint() {
   })
 }
 
-function handleToPdf() {
-  if (!hiprintTemplate) return
-  const printData = getPrintData()
-  hiprintTemplate.toPdf(printData, templateName.value || '打印预览')
-}
+
 </script>
 
 <style>
@@ -417,6 +466,10 @@ function handleToPdf() {
 }
 
 /* 属性面板样式 */
+#PrintElementOptionSetting {
+  font-size: 12px;
+}
+
 #PrintElementOptionSetting .hiprint-option-item-label,
 #PrintElementOptionSetting label {
   font-size: 12px;
@@ -436,6 +489,15 @@ function handleToPdf() {
   margin-bottom: 6px;
 }
 
+#PrintElementOptionSetting h3,
+#PrintElementOptionSetting h4,
+#PrintElementOptionSetting h5,
+#PrintElementOptionSetting .title,
+#PrintElementOptionSetting span,
+#PrintElementOptionSetting div {
+  font-size: 12px;
+}
+
 /* 画布容器 */
 #hiprint-printTemplate {
   padding: 20px;
@@ -451,5 +513,45 @@ function handleToPdf() {
   background: white;
   box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
   margin-bottom: 16px;
+}
+
+/* 面板分隔条 */
+.panel-resizer {
+  position: relative;
+  flex-shrink: 0;
+  width: 6px;
+  cursor: col-resize;
+  background: #f1f5f9;
+  border-left: 1px solid #e2e8f0;
+  border-right: 1px solid #e2e8f0;
+  transition: background-color 0.15s;
+}
+
+.panel-resizer:hover {
+  background: #dbeafe;
+}
+
+.panel-resizer-btn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 16px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 4px;
+  cursor: pointer;
+  color: #94a3b8;
+  z-index: 1;
+  transition: color 0.15s, border-color 0.15s;
+}
+
+.panel-resizer-btn:hover {
+  color: #3b82f6;
+  border-color: #93c5fd;
 }
 </style>

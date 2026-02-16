@@ -10,6 +10,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 @Slf4j
 @RestControllerAdvice
@@ -50,6 +51,13 @@ public class GlobalExceptionHandler {
     public ApiResult<?> handleBusiness(BusinessException e) {
         log.warn("业务异常: {}", e.getMessage());
         return ApiResult.fail(e.getCode(), e.getMessage());
+    }
+
+    @ExceptionHandler(NoResourceFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ApiResult<?> handleNotFound(NoResourceFoundException e) {
+        log.warn("资源不存在: {}", e.getResourcePath());
+        return ApiResult.fail(404, "请求的资源不存在");
     }
 
     @ExceptionHandler(Exception.class)
