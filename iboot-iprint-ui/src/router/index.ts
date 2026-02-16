@@ -13,7 +13,11 @@ const router = createRouter({
       path: '/',
       component: () => import('../components/Layout.vue'),
       children: [
-        { path: '', redirect: '/templates' },
+        {
+          path: '',
+          name: 'Dashboard',
+          component: () => import('../views/Dashboard.vue')
+        },
         {
           path: 'templates',
           name: 'PrintTemplates',
@@ -30,6 +34,11 @@ const router = createRouter({
           component: () => import('../views/ChangePassword.vue')
         }
       ]
+    },
+    {
+      path: '/:pathMatch(.*)*',
+      name: 'NotFound',
+      component: () => import('../views/NotFound.vue')
     }
   ]
 })

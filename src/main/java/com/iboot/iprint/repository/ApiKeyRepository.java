@@ -14,6 +14,8 @@ public interface ApiKeyRepository extends JpaRepository<ApiKey, Long> {
 
     boolean existsByApiKey(String apiKey);
 
+    long countByStatus(Integer status);
+
     @Query("SELECT a FROM ApiKey a WHERE " +
            "(:keyword IS NULL OR :keyword = '' OR LOWER(a.name) LIKE LOWER(CONCAT('%', :keyword, '%')) " +
            "OR LOWER(a.description) LIKE LOWER(CONCAT('%', :keyword, '%'))) " +

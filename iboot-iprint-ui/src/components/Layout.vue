@@ -5,7 +5,7 @@
       <div class="h-full max-w-7xl mx-auto px-6 flex items-center justify-between">
         <!-- 左侧：Logo + 导航 -->
         <div class="flex items-center gap-8">
-          <div class="flex items-center gap-2.5">
+          <router-link to="/" class="flex items-center gap-2.5 hover:opacity-80 transition-opacity cursor-pointer">
             <svg class="w-6 h-6 text-primary shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <polyline points="6 9 6 2 18 2 18 9"/>
               <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/>
@@ -13,20 +13,20 @@
             </svg>
             <span class="text-base-content font-semibold text-base">iBoot iPrint</span>
             <span v-if="hiprintVersion" class="text-xs text-base-content/40 font-normal">{{ hiprintVersion }}</span>
-          </div>
+          </router-link>
           <nav class="flex items-center gap-1">
             <router-link
               v-for="item in navItems"
               :key="item.path"
               :to="item.path"
               class="relative px-3 py-1.5 rounded-md text-sm font-medium transition-colors duration-200 cursor-pointer"
-              :class="isActive(item.path)
+              :class="isActive(item)
                 ? 'text-primary bg-primary/5'
                 : 'text-nav-text hover:text-base-content hover:bg-nav-hover'"
             >
               {{ item.label }}
               <div
-                v-if="isActive(item.path)"
+                v-if="isActive(item)"
                 class="absolute bottom-0 left-3 right-3 h-0.5 bg-primary rounded-t translate-y-[11px]"
               ></div>
             </router-link>
@@ -81,8 +81,9 @@ const route = useRoute()
 const hiprintVersion = ref('')
 
 const navItems = [
-  { path: '/templates', label: '打印模版' },
-  { path: '/api-keys', label: 'API Key 管理' }
+  { path: '/', label: '首页', exact: true },
+  { path: '/templates', label: '打印模版', exact: false },
+  { path: '/api-keys', label: 'API Key 管理', exact: false }
 ]
 
 onMounted(async () => {
@@ -92,8 +93,9 @@ onMounted(async () => {
   } catch { /* ignore */ }
 })
 
-function isActive(path: string) {
-  return route.path === path || route.path.startsWith(path + '/')
+function isActive(item: { path: string; exact: boolean }) {
+  if (item.exact) return route.path === item.path
+  return route.path === item.path || route.path.startsWith(item.path + '/')
 }
 
 async function handleLogout() {
