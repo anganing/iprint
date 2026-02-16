@@ -83,7 +83,8 @@ const hiprintVersion = ref('')
 const navItems = [
   { path: '/', label: '首页', exact: true },
   { path: '/templates', label: '打印模版', exact: false },
-  { path: '/api-keys', label: 'API Key 管理', exact: false }
+  { path: '/api-keys', label: 'API Key 管理', exact: false },
+  { path: '/users', label: '用户管理', exact: false }
 ]
 
 onMounted(async () => {

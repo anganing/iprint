@@ -51,6 +51,7 @@ public class AuthController {
         return ApiResult.ok(UserInfoResponse.builder()
                 .id(user.getId())
                 .username(user.getUsername())
+                .createdAt(user.getCreatedAt())
                 .build());
     }
 
@@ -62,6 +63,7 @@ public class AuthController {
         return ApiResult.ok(UserInfoResponse.builder()
                 .id(user.getId())
                 .username(user.getUsername())
+                .createdAt(user.getCreatedAt())
                 .build());
     }
 

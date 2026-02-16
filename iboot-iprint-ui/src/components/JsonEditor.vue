@@ -16,7 +16,8 @@ const emit = defineEmits<{
 }>()
 
 const containerRef = ref<HTMLDivElement>()
-let editor: JSONEditor | null = null
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+let editor: any = null
 let internalUpdate = false
 
 function parseContent(str: string): Content {
@@ -26,6 +27,7 @@ function parseContent(str: string): Content {
 
 onMounted(() => {
   if (!containerRef.value) return
+  // @ts-expect-error vanilla-jsoneditor factory function
   editor = new JSONEditor({
     target: containerRef.value,
     props: {

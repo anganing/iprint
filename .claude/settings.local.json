@@ -27,7 +27,8 @@
       "Bash(pnpm add:*)",
       "Skill(ui-ux-pro-max)",
       "Bash(python:*)",
-      "Bash(./mvnw.cmd clean compile:*)"
+      "Bash(./mvnw.cmd clean compile:*)",
+      "Bash(pnpm build)"
     ]
   }
 }

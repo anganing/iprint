@@ -29,6 +29,11 @@ const router = createRouter({
           component: () => import('../views/ApiKeys.vue')
         },
         {
+          path: 'users',
+          name: 'Users',
+          component: () => import('../views/Users.vue')
+        },
+        {
           path: 'change-password',
           name: 'ChangePassword',
           component: () => import('../views/ChangePassword.vue')
