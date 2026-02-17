@@ -51,7 +51,7 @@ pnpm build
 ### 数据库
 
 PostgreSQL 17，连接信息：`localhost:5432/iboot_iprint`，`postgres/123456`。
-初始化脚本：`docs/schema.sql`，默认管理员账户 `admin/admin123`。
+初始化脚本：`docs/schema.sql`，默认管理员账户 `admin/123456`。
 
 ## Tech Stack
 

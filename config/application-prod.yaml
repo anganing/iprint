@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: iboot-iprint
+
+  # PostgreSQL 数据源
+  datasource:
+    url: jdbc:postgresql://localhost:5432/iboot_iprint
+    username: postgres
+    password: iboot@2025
+    driver-class-name: org.postgresql.Driver
+
+server:
+  port: 58080
+  servlet:
+    context-path: /
+
+logging:
+  file:
+    path: /app/logs
+  level:
+    root: INFO
+    com.iboot.iprint: INFO

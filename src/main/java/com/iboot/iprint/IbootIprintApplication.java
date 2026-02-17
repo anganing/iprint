@@ -27,10 +27,10 @@ public class IbootIprintApplication {
             if (userRepository.findByUsername("admin").isEmpty()) {
                 User admin = User.builder()
                         .username("admin")
-                        .password(passwordEncoder.encode("admin123"))
+                        .password(passwordEncoder.encode("123456"))
                         .build();
                 userRepository.save(admin);
-                log.info("默认管理员账户已创建: admin/admin123");
+                log.info("默认管理员账户已创建: admin/123456");
             }
         };
     }

@@ -1,1 +1,0 @@
-import{j as e}from"./index-CAGN57WU.js";const a={list(t={}){return e.get("/templates",{params:t})},get(t){return e.get(`/templates/${t}`)},create(t){return e.post("/templates",t)},update(t,r){return e.put(`/templates/${t}`,r)},remove(t){return e.delete(`/templates/${t}`)}};export{a as p};

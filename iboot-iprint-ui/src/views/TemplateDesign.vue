@@ -1,5 +1,5 @@
 <template>
-  <div class="h-screen flex flex-col bg-page-bg overflow-hidden">
+  <div class="h-screen flex flex-col bg-page-bg overflow-hidden relative">
     <!-- 顶部工具栏 -->
     <header class="h-12 bg-white border-b border-sidebar-border flex items-center justify-between px-4 shrink-0">
       <div class="flex items-center gap-3">
@@ -192,6 +192,11 @@
       </div>
       <form method="dialog" class="modal-backdrop"><button>close</button></form>
     </dialog>
+
+    <!-- 页脚版权 -->
+    <footer class="absolute bottom-1 left-0 right-0 text-center text-[10px] text-base-content/20 pointer-events-none">
+      &copy; {{ new Date().getFullYear() }} iBoot. All rights reserved.
+    </footer>
   </div>
 </template>
 

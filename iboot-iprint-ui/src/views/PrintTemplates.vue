@@ -4,7 +4,7 @@
     <div class="flex items-center justify-between mb-6">
       <div>
         <h1 class="text-2xl font-bold text-base-content">打印模版管理</h1>
-        <p class="text-sm text-base-content/50 mt-1">管理和预览您的打印模版</p>
+        <p class="text-sm text-base-content/50 mt-1"></p>
       </div>
       <button class="btn btn-primary gap-2" @click="openCreateModal">
         <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">

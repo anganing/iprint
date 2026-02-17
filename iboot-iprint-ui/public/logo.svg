@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#3b82f6"/>
+      <stop offset="100%" stop-color="#1d4ed8"/>
+    </linearGradient>
+  </defs>
+  <!-- 圆角方形背景 -->
+  <rect width="64" height="64" rx="14" fill="url(#bg)"/>
+  <!-- 进纸（顶部纸张） -->
+  <rect x="20" y="8" width="24" height="15" rx="2" fill="white" opacity="0.92"/>
+  <line x1="25" y1="13" x2="39" y2="13" stroke="#3b82f6" stroke-width="1.5" stroke-linecap="round" opacity="0.2"/>
+  <line x1="25" y1="17.5" x2="34" y2="17.5" stroke="#3b82f6" stroke-width="1.5" stroke-linecap="round" opacity="0.2"/>
+  <!-- 打印机主体 -->
+  <rect x="10" y="23" width="44" height="16" rx="4" fill="white"/>
+  <!-- 进纸槽 -->
+  <rect x="22" y="25.5" width="14" height="2.5" rx="1.25" fill="#dbeafe"/>
+  <!-- 电源启动符号 ⏻ (iBoot) -->
+  <circle cx="44" cy="31" r="4.2" stroke="#2563eb" stroke-width="2" fill="none"/>
+  <line x1="44" y1="26.5" x2="44" y2="30" stroke="#2563eb" stroke-width="2" stroke-linecap="round"/>
+  <!-- 绿色运行指示灯 -->
+  <circle cx="18" cy="31" r="2.5" fill="#34d399"/>
+  <!-- 出纸（底部纸张） -->
+  <rect x="18" y="39" width="28" height="17" rx="2" fill="white" opacity="0.92"/>
+  <line x1="23" y1="45" x2="41" y2="45" stroke="#3b82f6" stroke-width="1.5" stroke-linecap="round" opacity="0.2"/>
+  <line x1="23" y1="49.5" x2="35" y2="49.5" stroke="#3b82f6" stroke-width="1.5" stroke-linecap="round" opacity="0.2"/>
+</svg>

@@ -1,0 +1,120 @@
+2026-02-17 17:21:12.459 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 9.0.1.Final
+2026-02-17 17:21:12.501 [main] INFO  c.i.iprint.IbootIprintApplication - Starting IbootIprintApplication using Java 17.0.17 with PID 27888 (D:\iboot-pro\iboot-iprint\target\classes started by 14190 in D:\iboot-pro\iboot-iprint)
+2026-02-17 17:21:12.502 [main] DEBUG c.i.iprint.IbootIprintApplication - Running with Spring Boot v4.0.2, Spring v7.0.3
+2026-02-17 17:21:12.502 [main] INFO  c.i.iprint.IbootIprintApplication - No active profile set, falling back to 1 default profile: "default"
+2026-02-17 17:21:12.955 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-02-17 17:21:12.994 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 31 ms. Found 3 JPA repository interfaces.
+2026-02-17 17:21:13.319 [main] INFO  o.s.boot.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2026-02-17 17:21:13.327 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2026-02-17 17:21:13.328 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-02-17 17:21:13.329 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/11.0.15]
+2026-02-17 17:21:13.365 [main] INFO  o.s.b.w.c.s.WebApplicationContextInitializer - Root WebApplicationContext: initialization completed in 832 ms
+2026-02-17 17:21:13.451 [main] INFO  org.hibernate.orm.jpa - HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-02-17 17:21:13.486 [main] INFO  org.hibernate.orm.core - HHH000001: Hibernate ORM core version 7.2.1.Final
+2026-02-17 17:21:13.769 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-02-17 17:21:13.791 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-02-17 17:21:13.886 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@51c008fd
+2026-02-17 17:21:13.887 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-02-17 17:21:13.940 [main] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:postgresql://localhost:5432/iboot_iprint]
+	Database driver: PostgreSQL JDBC Driver
+	Database dialect: PostgreSQLDialect
+	Database version: 17.5
+	Default catalog/schema: iboot_iprint/public
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-02-17 17:21:14.610 [main] INFO  org.hibernate.orm.core - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-02-17 17:21:14.649 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-02-17 17:21:14.691 [main] INFO  o.s.d.j.r.q.QueryEnhancerFactories - Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-02-17 17:21:15.365 [main] DEBUG c.i.iprint.security.ApiKeyAuthFilter - Filter 'apiKeyAuthFilter' configured for use
+2026-02-17 17:21:15.469 [main] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
+2026-02-17 17:21:15.656 [main] INFO  o.s.b.w.a.WelcomePageHandlerMapping - Adding welcome page: class path resource [static/index.html]
+2026-02-17 17:21:15.835 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2026-02-17 17:21:15.848 [main] INFO  o.s.boot.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2026-02-17 17:21:15.851 [main] INFO  c.i.iprint.IbootIprintApplication - Started IbootIprintApplication in 3.732 seconds (process running for 4.156)
+2026-02-17 17:22:16.579 [SpringApplicationShutdownHook] INFO  o.s.boot.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2026-02-17 17:22:16.612 [tomcat-shutdown] INFO  o.s.boot.tomcat.GracefulShutdown - Graceful shutdown complete
+2026-02-17 17:22:16.616 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-02-17 17:22:16.617 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-02-17 17:22:16.621 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-02-17 17:24:50.727 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 9.0.1.Final
+2026-02-17 17:24:50.767 [main] INFO  c.i.iprint.IbootIprintApplication - Starting IbootIprintApplication using Java 17.0.17 with PID 27472 (D:\iboot-pro\iboot-iprint\target\classes started by 14190 in D:\iboot-pro\iboot-iprint)
+2026-02-17 17:24:50.768 [main] DEBUG c.i.iprint.IbootIprintApplication - Running with Spring Boot v4.0.2, Spring v7.0.3
+2026-02-17 17:24:50.768 [main] INFO  c.i.iprint.IbootIprintApplication - No active profile set, falling back to 1 default profile: "default"
+2026-02-17 17:24:51.270 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-02-17 17:24:51.315 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 37 ms. Found 3 JPA repository interfaces.
+2026-02-17 17:24:51.645 [main] INFO  o.s.boot.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2026-02-17 17:24:51.657 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2026-02-17 17:24:51.658 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-02-17 17:24:51.658 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/11.0.15]
+2026-02-17 17:24:51.693 [main] INFO  o.s.b.w.c.s.WebApplicationContextInitializer - Root WebApplicationContext: initialization completed in 891 ms
+2026-02-17 17:24:51.779 [main] INFO  org.hibernate.orm.jpa - HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-02-17 17:24:51.813 [main] INFO  org.hibernate.orm.core - HHH000001: Hibernate ORM core version 7.2.1.Final
+2026-02-17 17:24:52.111 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-02-17 17:24:52.133 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-02-17 17:24:52.248 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@6bf54260
+2026-02-17 17:24:52.249 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-02-17 17:24:52.297 [main] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:postgresql://localhost:5432/iboot_iprint]
+	Database driver: PostgreSQL JDBC Driver
+	Database dialect: PostgreSQLDialect
+	Database version: 17.5
+	Default catalog/schema: iboot_iprint/public
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-02-17 17:24:52.987 [main] INFO  org.hibernate.orm.core - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-02-17 17:24:53.029 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-02-17 17:24:53.073 [main] INFO  o.s.d.j.r.q.QueryEnhancerFactories - Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-02-17 17:24:53.724 [main] DEBUG c.i.iprint.security.ApiKeyAuthFilter - Filter 'apiKeyAuthFilter' configured for use
+2026-02-17 17:24:53.820 [main] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
+2026-02-17 17:24:53.999 [main] INFO  o.s.b.w.a.WelcomePageHandlerMapping - Adding welcome page: class path resource [static/index.html]
+2026-02-17 17:24:54.178 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2026-02-17 17:24:54.192 [main] INFO  o.s.boot.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2026-02-17 17:24:54.196 [main] INFO  c.i.iprint.IbootIprintApplication - Started IbootIprintApplication in 3.849 seconds (process running for 4.315)
+2026-02-17 17:24:59.268 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-02-17 17:24:59.269 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-02-17 17:24:59.271 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 2 ms
+2026-02-17 17:24:59.305 [http-nio-8080-exec-1] WARN  c.i.i.e.GlobalExceptionHandler - 资源不存在: templates
+2026-02-17 17:25:23.038 [http-nio-8080-exec-6] DEBUG c.i.i.s.i.HiprintRenderServiceImpl - 执行的 script = (function() {
+    try {
+        var result = getHiprintVersion();
+        return result;
+    } catch(e) {
+        return 'ERROR: ' + e.message;
+    }
+})()
+
+2026-02-17 17:25:43.667 [http-nio-8080-exec-1] DEBUG c.i.i.s.i.HiprintRenderServiceImpl - 执行的 script = (function() {
+    try {
+        var result = getHiprintVersion();
+        return result;
+    } catch(e) {
+        return 'ERROR: ' + e.message;
+    }
+})()
+
+2026-02-17 17:25:46.366 [http-nio-8080-exec-3] DEBUG c.i.i.s.i.HiprintRenderServiceImpl - 执行的 script = (function() {
+    try {
+        var result = generateHtml("{\"panels\":[{\"index\":0,\"name\":1,\"height\":297,\"width\":210,\"paperHeader\":49.5,\"paperFooter\":780.0000000000001,\"printElements\":[{\"options\":{\"left\":45,\"top\":15,\"height\":9.75,\"width\":120,\"title\":\"文本\",\"right\":165,\"bottom\":24.75,\"vCenter\":105,\"hCenter\":19.875,\"field\":\"a\",\"testData\":\"666\",\"coordinateSync\":false,\"widthHeightSync\":false,\"qrCodeLevel\":0},\"printElementType\":{\"title\":\"文本\",\"type\":\"text\"}},{\"options\":{\"left\":22.5,\"top\":63,\"height\":74,\"width\":550,\"field\":\"table\",\"groupFooterFormatter\":\"function groupFooterFormatter(group, option) {\\n          return \\\"这里自定义统计脚信息\\\";\\n        }\",\"groupFieldsFormatter\":\"function(type,options,data){ return [\\\"name\\\"] }\",\"qid\":\"table\",\"columns\":[[{\"width\":69.99999999999999,\"title\":\"行号\",\"field\":\"id\",\"checked\":true,\"columnId\":\"id\",\"fixed\":false,\"rowspan\":2,\"colspan\":1},{\"width\":100,\"title\":\"人员信息\",\"checked\":true,\"fixed\":false,\"rowspan\":1,\"colspan\":2},{\"width\":100,\"title\":\"销售统计\",\"checked\":true,\"fixed\":false,\"rowspan\":1,\"colspan\":2}],[{\"width\":120,\"title\":\"姓名\",\"field\":\"name\",\"checked\":true,\"columnId\":\"name\",\"fixed\":false,\"rowspan\":1,\"colspan\":1,\"align\":\"left\"},{\"width\":120,\"title\":\"性别\",\"field\":\"gender\",\"checked\":true,\"columnId\":\"gender\",\"fixed\":false,\"rowspan\":1,\"colspan\":1},{\"width\":120,\"title\":\"销售数量\",\"field\":\"count\",\"checked\":true,\"columnId\":\"count\",\"fixed\":false,\"rowspan\":1,\"colspan\":1},{\"width\":120,\"title\":\"销售金额\",\"field\":\"amount\",\"checked\":true,\"columnId\":\"amount\",\"fixed\":false,\"rowspan\":1,\"colspan\":1}]]},\"printElementType\":{\"title\":\"表格\",\"type\":\"table\",\"editable\":true,\"columnDisplayEditable\":true,\"columnDisplayIndexEditable\":true,\"columnTitleEditable\":true,\"columnResizable\":true,\"columnAlignEditable\":true,\"isEnableEditField\":true,\"isEnableContextMenu\":true,\"isEnableInsertRow\":true,\"isEnableDeleteRow\":true,\"isEnableInsertColumn\":true,\"isEnableDeleteColumn\":true,\"isEnableMergeCell\":true}},{\"options\":{\"left\":30,\"top\":183,\"height\":50,\"width\":50,\"textType\":\"qrcode\",\"title\":\"二维码\",\"field\":\"b\",\"testData\":\"b\",\"coordinateSync\":false,\"widthHeightSync\":false,\"qrCodeLevel\":0},\"printElementType\":{\"title\":\"二维码\",\"type\":\"text\"}},{\"options\":{\"left\":171,\"top\":195,\"height\":35,\"width\":140,\"textType\":\"barcode\",\"title\":\"123456789\",\"field\":\"v\",\"testData\":\"v\",\"coordinateSync\":false,\"widthHeightSync\":false,\"qrCodeLevel\":0},\"printElementType\":{\"title\":\"123456789\",\"type\":\"text\"}},{\"options\":{\"left\":27,\"top\":262.5,\"height\":36,\"width\":550,\"field\":\"users\",\"coordinateSync\":false,\"widthHeightSync\":false,\"columns\":[[{\"width\":275,\"title\":\"姓名\",\"field\":\"name\",\"checked\":true,\"columnId\":\"name\",\"fixed\":false,\"rowspan\":1,\"colspan\":1},{\"width\":275,\"title\":\"账号\",\"field\":\"account\",\"checked\":true,\"columnId\":\"account\",\"fixed\":false,\"rowspan\":1,\"colspan\":1,\"tableTextType\":\"qrcode\",\"tableQRCodeLevel\":0,\"tableSummaryTitle\":true,\"tableSummary\":\"\"},{\"width\":100,\"title\":\"\",\"field\":\"\",\"checked\":false,\"columnId\":\"\",\"fixed\":false,\"rowspan\":1,\"colspan\":1},{\"width\":100,\"title\":\"\",\"field\":\"\",\"checked\":false,\"columnId\":\"\",\"fixed\":false,\"rowspan\":1,\"colspan\":1}]]},\"printElementType\":{\"title\":\"空白表格\",\"type\":\"table\",\"editable\":true,\"columnDisplayEditable\":true,\"columnDisplayIndexEditable\":true,\"columnTitleEditable\":true,\"columnResizable\":true,\"columnAlignEditable\":true,\"isEnableEditField\":true,\"isEnableContextMenu\":true,\"isEnableInsertRow\":true,\"isEnableDeleteRow\":true,\"isEnableInsertColumn\":true,\"isEnableDeleteColumn\":true,\"isEnableMergeCell\":true}},{\"options\":{\"left\":135,\"top\":352.5,\"height\":9.75,\"width\":120,\"title\":\"自定义文本\",\"right\":255.0000228881836,\"bottom\":361.5000228881836,\"vCenter\":195.0000228881836,\"hCenter\":356.6250228881836,\"field\":\"e\",\"testData\":\"e\",\"coordinateSync\":false,\"widthHeightSync\":false,\"qrCodeLevel\":0},\"printElementType\":{\"title\":\"自定义文本\",\"type\":\"text\"}},{\"options\":{\"left\":319.5,\"top\":352.5,\"height\":42,\"width\":183,\"title\":\"长文\",\"right\":502.5,\"bottom\":393.7500343322754,\"vCenter\":411,\"hCenter\":372.7500343322754,\"field\":\"d\",\"testData\":\"d\",\"coordinateSync\":false,\"widthHeightSync\":false},\"printElementType\":{\"title\":\"长文\",\"type\":\"longText\"}},{\"options\":{\"left\":58.5,\"top\":366,\"height\":90,\"width\":90,\"formatter\":\"function formatter(data, options) {\\n          return '<div style=\\\"height:50pt;width:50pt;background:red;border-radius: 50%;\\\"></div>';\\n        }\"},\"printElementType\":{\"title\":\"html\",\"type\":\"html\"}},{\"options\":{\"left\":207,\"top\":418.5,\"height\":90,\"width\":9},\"printElementType\":{\"title\":\"竖线\",\"type\":\"vline\"}},{\"options\":{\"left\":478.5,\"top\":435,\"height\":90,\"width\":90},\"printElementType\":{\"title\":\"椭圆\",\"type\":\"oval\"}},{\"options\":{\"left\":54,\"top\":447,\"height\":9,\"width\":90,\"borderWidth\":0.75},\"printElementType\":{\"title\":\"横线\",\"type\":\"hline\"}},{\"options\":{\"left\":294,\"top\":454.5,\"height\":90,\"width\":90},\"printElementType\":{\"title\":\"矩形\",\"type\":\"rect\"}},{\"options\":{\"left\":127.5,\"top\":574.5,\"height\":35,\"width\":140,\"textType\":\"barcode\",\"title\":\"123456789\"},\"printElementType\":{\"title\":\"123456789\",\"type\":\"text\"}},{\"options\":{\"left\":279,\"top\":627,\"height\":50,\"width\":50,\"textType\":\"qrcode\",\"title\":\"二维码\"},\"printElementType\":{\"title\":\"二维码\",\"type\":\"text\"}}],\"paperNumberLeft\":565.5,\"paperNumberTop\":573,\"paperNumberContinue\":true,\"watermarkOptions\":{\"content\":\"vue-plugin-hiprint\",\"rotate\":25,\"timestamp\":true,\"format\":\"YYYY-MM-DD HH:mm\"},\"panelLayoutOptions\":{}}]}", "[{\"a\":\"6669999\",\"b\":\"99999999\",\"c\":\"dsds\",\"d\":\"dsdsdsdsd\",\"e\":\"dsdsds\",\"v\":\"dsds\",\"users\":[{\"name\":\"jack\",\"account\":\"男\"},{\"name\":\"tom\",\"account\":\"https://github.com/anganing\"}],\"url\":\"https://github.com/anganing\"},{\"a\":6669999,\"b\":99999999,\"v\":43,\"users\":[{\"name\":\"杰克\",\"sex\":\"男\"},{\"name\":\"玛丽\",\"sex\":\"女\"}],\"url\":\"https://github.com/anganing\"}]");
+        return result;
+    } catch(e) {
+        return 'ERROR: ' + e.message;
+    }
+})()
+
+2026-02-17 17:25:48.547 [http-nio-8080-exec-3] INFO  c.i.i.s.i.HiprintRenderServiceImpl - hiprint width: 210, height: 297
+2026-02-17 17:25:48.551 [http-nio-8080-exec-3] DEBUG c.iboot.iprint.util.WkhtmltopdfUtil - 执行 wkhtmltopdf 命令: wkhtmltopdf --encoding UTF-8 --page-width 210mm --page-height 297mm --margin-top 0 --margin-bottom 0 --margin-left 0 --margin-right 0 --enable-javascript --javascript-delay 1000 --disable-smart-shrinking --no-stop-slow-scripts --enable-local-file-access C:\Users\14190\AppData\Local\Temp\wkhtml_11537548096754954855.html C:\Users\14190\AppData\Local\Temp\pdf1525454455696103962001khnepy2prhesxc3nmjbmxx3f.pdf
+2026-02-17 17:25:49.789 [http-nio-8080-exec-3] DEBUG c.iboot.iprint.util.WkhtmltopdfUtil - wkhtmltopdf 执行成功，输出文件: C:\Users\14190\AppData\Local\Temp\pdf1525454455696103962001khnepy2prhesxc3nmjbmxx3f.pdf
+2026-02-17 17:28:26.398 [SpringApplicationShutdownHook] INFO  o.s.boot.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2026-02-17 17:28:26.429 [tomcat-shutdown] INFO  o.s.boot.tomcat.GracefulShutdown - Graceful shutdown complete
+2026-02-17 17:28:26.433 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-02-17 17:28:26.435 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-02-17 17:28:26.437 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.

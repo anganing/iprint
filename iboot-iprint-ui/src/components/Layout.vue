@@ -6,10 +6,22 @@
         <!-- 左侧：Logo + 导航 -->
         <div class="flex items-center gap-8">
           <router-link to="/" class="flex items-center gap-2.5 hover:opacity-80 transition-opacity cursor-pointer">
-            <svg class="w-6 h-6 text-primary shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="6 9 6 2 18 2 18 9"/>
-              <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/>
-              <rect x="6" y="14" width="12" height="8"/>
+            <svg class="w-7 h-7 shrink-0" viewBox="0 0 24 24" fill="none">
+              <!-- 进纸 -->
+              <rect x="7" y="1.5" width="10" height="7" rx="1" fill="#3b82f6" opacity="0.12" stroke="#3b82f6" stroke-width="1.4"/>
+              <line x1="9.5" y1="4" x2="14.5" y2="4" stroke="#3b82f6" stroke-width="0.8" stroke-linecap="round" opacity="0.25"/>
+              <line x1="9.5" y1="6" x2="13" y2="6" stroke="#3b82f6" stroke-width="0.8" stroke-linecap="round" opacity="0.25"/>
+              <!-- 打印机主体 -->
+              <rect x="3" y="8.5" width="18" height="7.5" rx="2" fill="#3b82f6"/>
+              <!-- 电源符号 ⏻ (iBoot) -->
+              <circle cx="16.5" cy="12.2" r="2" stroke="white" stroke-width="1.3" fill="none"/>
+              <line x1="16.5" y1="10" x2="16.5" y2="11.6" stroke="white" stroke-width="1.3" stroke-linecap="round"/>
+              <!-- 绿色指示灯 -->
+              <circle cx="7" cy="12.2" r="1.2" fill="#34d399"/>
+              <!-- 出纸 -->
+              <rect x="7" y="16" width="10" height="6.5" rx="1" fill="#3b82f6" opacity="0.12" stroke="#3b82f6" stroke-width="1.4"/>
+              <line x1="9.5" y1="19" x2="14.5" y2="19" stroke="#3b82f6" stroke-width="0.8" stroke-linecap="round" opacity="0.25"/>
+              <line x1="9.5" y1="21" x2="13" y2="21" stroke="#3b82f6" stroke-width="0.8" stroke-linecap="round" opacity="0.25"/>
             </svg>
             <span class="text-base-content font-semibold text-base">iBoot iPrint</span>
             <span v-if="hiprintVersion" class="text-xs text-base-content/40 font-normal">{{ hiprintVersion }}</span>
@@ -66,6 +78,11 @@
     <main class="max-w-7xl mx-auto px-6 py-6">
       <router-view />
     </main>
+
+    <!-- 页脚 -->
+    <footer class="py-4 text-center text-xs text-base-content/30">
+      &copy; {{ new Date().getFullYear() }} iBoot. All rights reserved.
+    </footer>
   </div>
 </template>
 
