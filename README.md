@@ -11,6 +11,55 @@
 - **多用户管理** — 管理员可管理用户、API Key、打印模板等资源
 - **Docker 部署** — 提供 Dockerfile 和 docker-compose 配置，一键容器化部署
 
+## 界面截图
+
+以下截图展示了系统的主要页面与核心操作流程，包括登录、仪表盘、模板管理、模板设计、API Key 管理等功能。
+
+<table>
+  <tr>
+    <td align="center" width="33%">
+      <img src="docs/images/截图1.png" alt="界面截图 1" width="260" /><br />
+      <sub>界面截图 1</sub>
+    </td>
+    <td align="center" width="33%">
+      <img src="docs/images/截图2.png" alt="界面截图 2" width="260" /><br />
+      <sub>界面截图 2</sub>
+    </td>
+    <td align="center" width="33%">
+      <img src="docs/images/截图3.png" alt="界面截图 3" width="260" /><br />
+      <sub>界面截图 3</sub>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" width="33%">
+      <img src="docs/images/截图4.png" alt="界面截图 4" width="260" /><br />
+      <sub>界面截图 4</sub>
+    </td>
+    <td align="center" width="33%">
+      <img src="docs/images/截图5.png" alt="界面截图 5" width="260" /><br />
+      <sub>界面截图 5</sub>
+    </td>
+    <td align="center" width="33%">
+      <img src="docs/images/截图6.png" alt="界面截图 6" width="260" /><br />
+      <sub>界面截图 6</sub>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" width="33%">
+      <img src="docs/images/截图7.png" alt="界面截图 7" width="260" /><br />
+      <sub>界面截图 7</sub>
+    </td>
+    <td align="center" width="33%">
+      <img src="docs/images/截图8.png" alt="界面截图 8" width="260" /><br />
+      <sub>界面截图 8</sub>
+    </td>
+    <td align="center" width="33%">
+      <img src="docs/images/截图9.png" alt="界面截图 9" width="260" /><br />
+      <sub>界面截图 9</sub>
+    </td>
+  </tr>
+</table>
+
 ## 技术栈
 
 ### 后端
