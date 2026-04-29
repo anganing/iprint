@@ -258,6 +258,40 @@ iboot-iprint/
 └── docker-compose.yml   # Docker Compose 编排
 ```
 
+## 交流与支持
+
+欢迎加入微信交流群，或关注微信公众号 `iboot` 获取项目更新、使用经验和后续规划。
+
+<div align="center">
+  <table>
+    <tr>
+      <td align="center" width="33%">
+        <strong>微信交流群</strong><br />
+        <img src="docs/images/微信交流群.jpg" alt="微信交流群" width="220" />
+      </td>
+      <td align="center" width="33%">
+        <strong>微信公众号</strong><br />
+        <img src="docs/images/微信公众号.png" alt="微信公众号" width="220" />
+      </td>
+      <td align="center" width="33%">
+        <strong>请我喝杯咖啡</strong><br />
+        <img src="docs/images/微信收款码.jpg" alt="买我咖啡" width="220" />
+      </td>
+    </tr>
+  </table>
+</div>
+
+## 后期规划
+
+- 接入 CUPS 打印服务，支持服务端直连打印机并下发打印任务
+- 增加打印机管理能力，包括打印机列表、状态检测和默认打印机配置
+- 增加打印任务管理能力，包括任务提交、执行状态、失败重试和历史记录
+- 优化模板渲染到实际打印链路的完整闭环，进一步降低第三方系统集成成本
+
 ## License
 
-Proprietary Software - Copyright (c) 2025 iboot. All rights reserved.
+本项目基于 [MIT License](./LICENSE) 开源。👏欢迎PR。
+
+你可以自由地使用、复制、修改、合并、发布、分发、再授权或销售本项目的副本，但需要在副本或重要部分中保留原始版权声明和 MIT 协议声明。
+
+本项目按“原样”提供，不提供任何形式的明示或暗示担保，包括但不限于适销性、特定用途适用性和非侵权担保。项目作者不对因使用本项目产生的任何索赔、损害或其他责任负责。
