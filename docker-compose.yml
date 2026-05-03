@@ -4,6 +4,7 @@ services:
   app:
     image: ibootio/iprint:latest
     container_name: iboot-iprint
+    network_mode: host
     ports:
       - "58080:58080"
     volumes:

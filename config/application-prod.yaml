@@ -14,6 +14,14 @@ server:
   servlet:
     context-path: /
 
+demo-mode:
+  enabled: true
+  blocked:
+    - method: PUT
+      path: /api/users/{id}
+    - method: DELETE
+      path: /api/users/{id}
+
 logging:
   file:
     path: /app/logs
