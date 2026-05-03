@@ -30,7 +30,8 @@
       "Bash(./mvnw.cmd clean compile:*)",
       "Bash(pnpm build)",
       "Bash(npx vue-tsc:*)",
-      "Bash(npx vite build:*)"
+      "Bash(npx vite build:*)",
+      "Bash(./mvnw.cmd test *)"
     ]
   }
 }

@@ -33,14 +33,15 @@ http.interceptors.response.use(
       }
       return Promise.reject(error)
     }
-    let msg = '请求失败'
+    const responseMessage = error.response?.data?.message
+    let msg = responseMessage || '请求失败'
     if (!error.response) {
       msg = '网络连接失败，请检查网络'
-    } else if (error.response.status >= 500) {
+    } else if (!responseMessage && error.response.status >= 500) {
       msg = '服务器错误，请稍后重试'
-    } else if (error.response.status === 403) {
+    } else if (!responseMessage && error.response.status === 403) {
       msg = '无权访问'
-    } else if (error.response.status === 404) {
+    } else if (!responseMessage && error.response.status === 404) {
       msg = '请求的资源不存在'
     }
     const toastStore = useToastStore()
