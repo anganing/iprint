@@ -32,6 +32,7 @@
         <htmlunit.version>4.12.0</htmlunit.version>
         <docker.tag>latest</docker.tag>
         <ulid-creator.version>5.2.3</ulid-creator.version>
+        <htmltopdf.version>1.0.8</htmltopdf.version>
     </properties>
     <dependencies>
         <dependency>
@@ -48,6 +49,11 @@
             <groupId>org.htmlunit</groupId>
             <artifactId>htmlunit</artifactId>
             <version>${htmlunit.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.woo</groupId>
+            <artifactId>htmltopdf</artifactId>
+            <version>${htmltopdf.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>

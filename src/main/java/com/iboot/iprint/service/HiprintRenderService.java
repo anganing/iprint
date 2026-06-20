@@ -52,4 +52,12 @@ public interface HiprintRenderService {
      * @return PDF 文件
      */
     File generatePdfByWkhtml2Pdf(@Valid RenderRequest renderRequest);
+
+    /**
+     * 使用 io.woo:htmltopdf（内置 wkhtmltopdf 原生库，无需系统安装）生成 PDF。
+     *
+     * @param renderRequest 请求参数
+     * @return PDF 文件
+     */
+    File generatePdfByHtmlToPdf(@Valid RenderRequest renderRequest);
 }

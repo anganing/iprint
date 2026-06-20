@@ -30,6 +30,8 @@ import com.iboot.iprint.exception.BusinessException;
 import com.iboot.iprint.service.HiprintRenderService;
 import com.iboot.iprint.model.request.RenderRequest;
 import com.iboot.iprint.util.WkhtmltopdfUtil;
+import io.woo.htmltopdf.HtmlToPdf;
+import io.woo.htmltopdf.HtmlToPdfObject;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
@@ -46,6 +48,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -171,6 +174,60 @@ public class HiprintRenderServiceImpl implements HiprintRenderService {
 
         WkhtmltopdfUtil.htmlToPdf(html, pdfPath, options);
 
+        return pdfPath.toFile();
+    }
+
+    /**
+     * 使用 io.woo:htmltopdf（内置 wkhtmltopdf 原生库，无需系统安装）生成 PDF。
+     *
+     * <p>底层与 {@link #generatePdfByWkhtml2Pdf} 同为 wkhtmltopdf（QtWebKit）引擎，
+     * 渲染效果一致，区别在于本方法以纯 Java 依赖内置原生库，免去系统安装。
+     *
+     * @param renderRequest 请求参数
+     * @return PDF 文件
+     */
+    @SneakyThrows
+    @Override
+    public File generatePdfByHtmlToPdf(RenderRequest renderRequest) {
+        Path pdfPath = Files.createTempFile("pdf", UlidCreator.getUlid().toLowerCase() + ".pdf");
+        String html = this.generateHtml(renderRequest);
+        // wkhtmltopdf 使用旧版 QtWebKit，不支持 SVG 2.0 的 href 属性
+        // 需要将 href="#xxx" 转换为 xlink:href="#xxx" 以兼容二维码渲染
+        html = html.replaceAll("href=\"(#[^\"]+)\"", "xlink:href=\"$1\"");
+
+        // 提取 hiprint 面板宽高（单位 mm）
+        @SuppressWarnings("unchecked")
+        List<Map<String, Object>> panels = (List<Map<String, Object>>) renderRequest.getTplData().get("panels");
+        int width = 210; // 默认 A4 宽度
+        int height = 297; // 默认 A4 高度
+        if (panels != null && !panels.isEmpty()) {
+            Map<String, Object> firstPanel = panels.get(0);
+            width = ((Number) firstPanel.getOrDefault("width", 210)).intValue();
+            height = ((Number) firstPanel.getOrDefault("height", 297)).intValue();
+        }
+        log.info("hiprint width: {}, height: {}", width, height);
+
+        // 自定义页面尺寸：HtmlToPdf 未直接暴露宽高设置，通过 create(Map) 传 wkhtmltox 原生全局设置
+        Map<String, String> globalSettings = new HashMap<>();
+        globalSettings.put("size.width", width + "mm");
+        globalSettings.put("size.height", height + "mm");
+
+        boolean success = HtmlToPdf.create(globalSettings)
+                .disableSmartShrinking(true)
+                .marginTop("0")
+                .marginBottom("0")
+                .marginLeft("0")
+                .marginRight("0")
+                .object(HtmlToPdfObject.forHtml(html)
+                        .enableJavascript(true)
+                        .javascriptDelay(1000)
+                        .usePrintMediaType(true)
+                        .enableIntelligentShrinking(false))
+                .convert(pdfPath.toString());
+
+        if (!success) {
+            throw new BusinessException("PDF 生成失败");
+        }
         return pdfPath.toFile();
     }
 

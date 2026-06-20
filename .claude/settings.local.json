@@ -31,7 +31,9 @@
       "Bash(pnpm build)",
       "Bash(npx vue-tsc:*)",
       "Bash(npx vite build:*)",
-      "Bash(./mvnw.cmd test *)"
+      "Bash(./mvnw.cmd test *)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "Bash(./mvnw.cmd -q compile)"
     ]
   }
 }

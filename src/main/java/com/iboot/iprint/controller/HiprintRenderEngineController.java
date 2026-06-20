@@ -81,7 +81,7 @@ public class HiprintRenderEngineController {
     @PostMapping("/generatePdf")
     public void generatePdf(@RequestBody @Valid RenderRequest renderRequest,
                             HttpServletResponse response) throws IOException {
-        File file = hiprintRenderService.generatePdfByWkhtml2Pdf(renderRequest);
+        File file = hiprintRenderService.generatePdfByHtmlToPdf(renderRequest);
         try {
             response.setContentType("application/pdf");
             response.setHeader("Content-Disposition", "attachment; filename=" + file.getName());
