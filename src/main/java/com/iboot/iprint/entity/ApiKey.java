@@ -1,10 +1,10 @@
 package com.iboot.iprint.entity;
 
-import jakarta.persistence.*;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.*;
 
-@Entity
-@Table(name = "sys_api_key")
+@TableName("sys_api_key")
 @Data
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
@@ -12,15 +12,12 @@ import lombok.*;
 @Builder
 public class ApiKey extends BaseEntity {
 
-    @Column(nullable = false, length = 100)
     private String name;
 
-    @Column(name = "api_key", nullable = false, unique = true, length = 64)
+    @TableField("api_key")
     private String apiKey;
 
-    @Column(nullable = false)
     private Integer status;
 
-    @Column(length = 500)
     private String description;
 }

@@ -1,5 +1,6 @@
 package com.iboot.iprint.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.iboot.iprint.exception.BusinessException;
 import com.iboot.iprint.model.request.ChangePasswordRequest;
 import com.iboot.iprint.model.request.UserRequest;
@@ -9,8 +10,6 @@ import com.iboot.iprint.entity.User;
 import com.iboot.iprint.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -46,11 +45,12 @@ public class UserService {
     }
 
     public PageResult<UserInfoResponse> listPage(String keyword, int page, int size) {
-        Page<User> pageData = userRepository.findByKeyword(keyword, PageRequest.of(page - 1, size));
-        List<UserInfoResponse> content = pageData.getContent().stream()
+        Page<User> mpPage = new Page<>(page, size);
+        com.baomidou.mybatisplus.core.metadata.IPage<User> pageData = userRepository.findByKeyword(keyword, mpPage);
+        List<UserInfoResponse> content = pageData.getRecords().stream()
                 .map(u -> UserInfoResponse.builder().id(u.getId()).username(u.getUsername()).createdAt(u.getCreatedAt()).build())
                 .collect(Collectors.toList());
-        return PageResult.of(content, pageData.getTotalElements(), pageData.getTotalPages(), page, size);
+        return PageResult.of(content, pageData.getTotal(), (int) pageData.getPages(), page, size);
     }
 
     @Transactional

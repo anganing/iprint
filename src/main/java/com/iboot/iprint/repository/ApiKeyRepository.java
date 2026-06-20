@@ -1,27 +1,62 @@
 package com.iboot.iprint.repository;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.iboot.iprint.entity.ApiKey;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 
+import java.util.List;
 import java.util.Optional;
 
-public interface ApiKeyRepository extends JpaRepository<ApiKey, Long> {
-    Optional<ApiKey> findByApiKey(String apiKey);
+public interface ApiKeyRepository extends BaseMapper<ApiKey> {
 
-    boolean existsByApiKey(String apiKey);
+    default Optional<ApiKey> findById(Long id) {
+        return Optional.ofNullable(selectById(id));
+    }
 
-    long countByStatus(Integer status);
+    default List<ApiKey> findAll() {
+        return selectList(null);
+    }
 
-    @Query("SELECT a FROM ApiKey a WHERE " +
-           "(:keyword IS NULL OR :keyword = '' OR LOWER(a.name) LIKE LOWER(CONCAT('%', :keyword, '%')) " +
-           "OR LOWER(a.description) LIKE LOWER(CONCAT('%', :keyword, '%'))) " +
-           "AND (:status IS NULL OR a.status = :status) " +
-           "ORDER BY a.createdAt DESC")
-    Page<ApiKey> findByKeywordAndStatus(@Param("keyword") String keyword,
-                                        @Param("status") Integer status,
-                                        Pageable pageable);
+    default void save(ApiKey entity) {
+        if (entity.getId() == null) {
+            insert(entity);
+        } else {
+            updateById(entity);
+        }
+    }
+
+    default void delete(ApiKey entity) {
+        if (entity != null && entity.getId() != null) {
+            deleteById(entity.getId());
+        }
+    }
+
+    default long count() {
+        return selectCount(null);
+    }
+
+    default Optional<ApiKey> findByApiKey(String apiKey) {
+        return Optional.ofNullable(selectOne(Wrappers.<ApiKey>lambdaQuery()
+                .eq(ApiKey::getApiKey, apiKey)));
+    }
+
+    default boolean existsByApiKey(String apiKey) {
+        return selectCount(Wrappers.<ApiKey>lambdaQuery()
+                .eq(ApiKey::getApiKey, apiKey)) > 0;
+    }
+
+    default long countByStatus(Integer status) {
+        return selectCount(Wrappers.<ApiKey>lambdaQuery()
+                .eq(ApiKey::getStatus, status));
+    }
+
+    default IPage<ApiKey> findByKeywordAndStatus(String keyword, Integer status, Page<ApiKey> page) {
+        return selectPage(page, Wrappers.<ApiKey>lambdaQuery()
+                .and(keyword != null && !keyword.isBlank(), w ->
+                        w.like(ApiKey::getName, keyword).or().like(ApiKey::getDescription, keyword))
+                .and(status != null, w -> w.eq(ApiKey::getStatus, status))
+                .orderByDesc(ApiKey::getCreatedAt));
+    }
 }

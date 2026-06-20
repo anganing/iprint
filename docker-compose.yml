@@ -8,6 +8,5 @@ services:
     ports:
       - "58080:58080"
     volumes:
-      - ./config/application-prod.yaml:/app/config/application-prod.yaml
       - ./logs:/app/logs
     restart: unless-stopped

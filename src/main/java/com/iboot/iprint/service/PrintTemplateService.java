@@ -1,5 +1,6 @@
 package com.iboot.iprint.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.iboot.iprint.converter.PrintTemplateConverter;
 import com.iboot.iprint.exception.BusinessException;
 import com.iboot.iprint.model.request.PrintTemplateRequest;
@@ -14,8 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 import tools.jackson.databind.ObjectMapper;
 
 import com.iboot.iprint.model.response.PageResult;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 
 import java.util.List;
 import java.util.Map;
@@ -37,13 +36,13 @@ public class PrintTemplateService {
     }
 
     public PageResult<PrintTemplateResponse> listPage(String keyword, int page, int size) {
-        Page<PrintTemplate> pageData = printTemplateRepository.findByKeyword(
-                keyword, PageRequest.of(page - 1, size));
-        List<PrintTemplateResponse> content = pageData.getContent().stream()
+        Page<PrintTemplate> mpPage = new Page<>(page, size);
+        com.baomidou.mybatisplus.core.metadata.IPage<PrintTemplate> pageData = printTemplateRepository.findByKeyword(
+                keyword, mpPage);
+        List<PrintTemplateResponse> content = pageData.getRecords().stream()
                 .map(printTemplateConverter::toResponse)
                 .collect(Collectors.toList());
-        return PageResult.of(content, pageData.getTotalElements(),
-                pageData.getTotalPages(), page, size);
+        return PageResult.of(content, pageData.getTotal(), (int) pageData.getPages(), page, size);
     }
 
     public PrintTemplateResponse getById(Long id) {

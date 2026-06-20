@@ -1,10 +1,10 @@
 package com.iboot.iprint.entity;
 
-import jakarta.persistence.*;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.*;
 
-@Entity
-@Table(name = "sys_print_template")
+@TableName("sys_print_template")
 @Data
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
@@ -12,15 +12,13 @@ import lombok.*;
 @Builder
 public class PrintTemplate extends BaseEntity {
 
-    @Column(nullable = false, unique = true, length = 100)
     private String code;
 
-    @Column(nullable = false, length = 200)
     private String name;
 
-    @Column(name = "template_data", columnDefinition = "text")
+    @TableField("template_data")
     private String templateData;
 
-    @Column(name = "print_data", columnDefinition = "text")
+    @TableField("print_data")
     private String printData;
 }
