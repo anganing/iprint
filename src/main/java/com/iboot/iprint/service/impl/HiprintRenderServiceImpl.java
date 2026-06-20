@@ -29,7 +29,6 @@ import com.github.f4b6a3.ulid.UlidCreator;
 import com.iboot.iprint.exception.BusinessException;
 import com.iboot.iprint.service.HiprintRenderService;
 import com.iboot.iprint.model.request.RenderRequest;
-import com.iboot.iprint.util.WkhtmltopdfUtil;
 import io.woo.htmltopdf.HtmlToPdf;
 import io.woo.htmltopdf.HtmlToPdfObject;
 import lombok.RequiredArgsConstructor;
@@ -144,44 +143,10 @@ public class HiprintRenderServiceImpl implements HiprintRenderService {
         return executeHiprintScript(script);
     }
 
-    @SneakyThrows
-    @Override
-    public File generatePdfByWkhtml2Pdf(RenderRequest renderRequest) {
-        Path pdfPath = Files.createTempFile("pdf", UlidCreator.getUlid().toLowerCase() + ".pdf");
-        String html = this.generateHtml(renderRequest);
-        // wkhtmltopdf 使用旧版 QtWebKit，不支持 SVG 2.0 的 href 属性
-        // 需要将 href="#xxx" 转换为 xlink:href="#xxx" 以兼容二维码渲染
-        html = html.replaceAll("href=\"(#[^\"]+)\"", "xlink:href=\"$1\"");
-
-        // 提取 hiprint 的 宽高
-        @SuppressWarnings("unchecked")
-        List<Map<String, Object>> panels = (List<Map<String, Object>>) renderRequest.getTplData().get("panels");
-        int width = 210; // 默认 A4 宽度
-        int height = 297; // 默认 A4 高度
-        if (panels != null && !panels.isEmpty()) {
-            Map<String, Object> firstPanel = panels.get(0);
-            width = ((Number) firstPanel.getOrDefault("width", 210)).intValue();
-            height = ((Number) firstPanel.getOrDefault("height", 297)).intValue();
-        }
-        log.info("hiprint width: {}, height: {}", width, height);
-        // 使用系统 wkhtmltopdf 命令生成 PDF
-        WkhtmltopdfUtil.PdfOptions options = WkhtmltopdfUtil.PdfOptions.defaults()
-                .customSize(width + "mm", height + "mm")
-                .enableJavascript(true)
-                .javascriptDelay(1000)
-                .enableIntelligentShrinking(false)
-                .noMargins();
-
-        WkhtmltopdfUtil.htmlToPdf(html, pdfPath, options);
-
-        return pdfPath.toFile();
-    }
-
     /**
-     * 使用 io.woo:htmltopdf（内置 wkhtmltopdf 原生库，无需系统安装）生成 PDF。
+     * 使用 io.woo:htmltopdf（内置 wkhtmltox 原生库，无需安装 wkhtmltopdf 命令行）生成 PDF。
      *
-     * <p>底层与 {@link #generatePdfByWkhtml2Pdf} 同为 wkhtmltopdf（QtWebKit）引擎，
-     * 渲染效果一致，区别在于本方法以纯 Java 依赖内置原生库，免去系统安装。
+     * <p>底层为 wkhtmltopdf（QtWebKit）引擎，以纯 Java 依赖内置原生库，免去系统安装。
      *
      * @param renderRequest 请求参数
      * @return PDF 文件

@@ -84,7 +84,6 @@ PostgreSQL 17，连接信息：`localhost:5432/iboot_iprint`，`postgres/123456`
 - `result/` — ApiResult（统一响应封装）
 - `exception/` — BusinessException、GlobalExceptionHandler
 - `enums/` — ApiKeyStatus
-- `util/` — WkhtmltopdfUtil（PDF 生成工具）
 
 ### 安全模型
 - **管理员 Web 认证**：Session-based，通过 `/api/auth/login` 登录

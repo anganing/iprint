@@ -33,7 +33,8 @@
       "Bash(npx vite build:*)",
       "Bash(./mvnw.cmd test *)",
       "WebFetch(domain:raw.githubusercontent.com)",
-      "Bash(./mvnw.cmd -q compile)"
+      "Bash(./mvnw.cmd -q compile)",
+      "Bash(./mvnw.cmd -q -o compile)"
     ]
   }
 }
