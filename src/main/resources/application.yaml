@@ -39,3 +39,17 @@ logging:
   level:
     root: INFO
     com.iboot.iprint: DEBUG
+
+iprint:
+  render:
+    htmlunit:
+      initial-wait-ms: 200
+      ready-timeout-ms: 3000
+      ready-poll-ms: 50
+    page-pool:
+      enabled: true
+      size: 2
+      borrow-timeout-ms: 1000
+      max-uses-per-page: 200
+    pdf:
+      javascript-delay-ms: 100

@@ -32,6 +32,7 @@ import com.iboot.iprint.model.request.TemplateRenderRequest;
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
 import org.springframework.web.bind.annotation.*;
 
@@ -41,6 +42,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
+@Slf4j
 @RestController
 @RequestMapping("/api/engine")
 public class HiprintRenderEngineController {
@@ -91,7 +93,9 @@ public class HiprintRenderEngineController {
                 IOUtils.copy(fis, response.getOutputStream());
             }
         } finally {
-            file.delete();
+            if (!file.delete()) {
+                log.warn("PDF 临时文件删除失败: {}", file.getAbsolutePath());
+            }
         }
     }
 

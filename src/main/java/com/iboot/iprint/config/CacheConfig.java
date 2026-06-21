@@ -22,4 +22,16 @@ public class CacheConfig {
                 .expireAfterWrite(10, TimeUnit.MINUTES)
                 .build();
     }
+
+    /**
+     * Hiprint 静态资源文本缓存
+     * Key = 资源名称, Value = 资源内容
+     */
+    @Bean
+    public Cache<String, String> hiprintStaticResourceCache() {
+        return Caffeine.newBuilder()
+                .maximumSize(16)
+                .expireAfterWrite(1, TimeUnit.HOURS)
+                .build();
+    }
 }

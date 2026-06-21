@@ -49,8 +49,20 @@
 <body>
 <!-- 指定脚本在解析页面的同时并行下载，并在页面解析完成后执行。 -->
 <script defer>
-    // 禁止自动重连打印客户端
-    window['vue-plugin-hiprint'].disAutoConnect();
+    window.__HIPRINT_INITIALIZED__ = false;
+    window.__HIPRINT_READY__ = false;
+
+    function ensureHiprintInitialized() {
+        if (window.__HIPRINT_INITIALIZED__) {
+            return;
+        }
+        // 禁止自动重连打印客户端
+        window['vue-plugin-hiprint'].disAutoConnect();
+        hiprint.init({
+            providers: [new window['vue-plugin-hiprint'].defaultElementTypeProvider()]
+        });
+        window.__HIPRINT_INITIALIZED__ = true;
+    }
 
     /**
      * 通过模板 json 和打印数据 json 渲染生成 html 字符串
@@ -59,10 +71,7 @@
      * @returns {string} 返回渲染后的 html 字符串
      */
     function generateHtml(templateConfig, printData) {
-        // 初始化
-        hiprint.init({
-            providers: [new window['vue-plugin-hiprint'].defaultElementTypeProvider()]
-        });
+        ensureHiprintInitialized();
         // 创建模板并填充数据
         const template = new hiprint.PrintTemplate({template: JSON.parse(templateConfig)});
         // 返回的是 jQuery 对象
@@ -93,10 +102,7 @@
      * @param type 生成 pdf 类型： blob（默认） arraybuffer dataurl bloburl dataurlstring pdfobjectnewwindow
      */
     function generatePdf(templateConfig, printData, type) {
-        // 初始化
-        hiprint.init({
-            providers: [new window['vue-plugin-hiprint'].defaultElementTypeProvider()]
-        });
+        ensureHiprintInitialized();
 
         // 创建模板并填充数据
         const template = new hiprint.PrintTemplate({template: JSON.parse(templateConfig)});
@@ -113,8 +119,12 @@
      * @returns {*}
      */
     function getHiprintVersion() {
+        ensureHiprintInitialized();
         return hiprint.version;
     }
+
+    ensureHiprintInitialized();
+    window.__HIPRINT_READY__ = true;
 </script>
 </body>
 </html>
