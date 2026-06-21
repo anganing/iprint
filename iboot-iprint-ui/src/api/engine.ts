@@ -35,5 +35,28 @@ export const engineApi = {
       throw new Error(message)
     }
     return blob
+  },
+
+  async previewPdf(params: { code: string; printData: object[] }): Promise<Blob> {
+    const res = await axios.post('/api/engine/render/pdf', params, {
+      responseType: 'blob',
+      withCredentials: true,
+    })
+    const blob: Blob = res.data
+    if (blob.type && blob.type.includes('application/json')) {
+      const text = await blob.text()
+      let message = 'PDF 生成失败'
+      try {
+        const json = JSON.parse(text)
+        message = json.message || message
+      } catch { /* ignore */ }
+      throw new Error(message)
+    }
+    return blob
+  },
+
+  async getVersion(): Promise<string> {
+    const res = await axios.get('/api/engine/version', { withCredentials: true })
+    return res.data?.data || ''
   }
 }

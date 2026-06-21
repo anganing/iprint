@@ -53,3 +53,12 @@ iprint:
       max-uses-per-page: 200
     pdf:
       javascript-delay-ms: 100
+  cups:
+    enabled: true
+    host: localhost
+    port: 631
+    secure: false
+    username: admin
+    password: 123456
+    connect-timeout-ms: 3000
+    read-timeout-ms: 10000

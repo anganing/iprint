@@ -34,6 +34,7 @@
         <ulid-creator.version>5.2.3</ulid-creator.version>
         <htmltopdf.version>1.0.8</htmltopdf.version>
         <mybatis-plus.version>3.5.16</mybatis-plus.version>
+        <cups4j.version>0.8.2</cups4j.version>
     </properties>
     <dependencies>
         <dependency>
@@ -96,6 +97,11 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.cups4j</groupId>
+            <artifactId>cups4j</artifactId>
+            <version>${cups4j.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>

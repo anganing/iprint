@@ -37,6 +37,21 @@ const router = createRouter({
           path: 'change-password',
           name: 'ChangePassword',
           component: () => import('../views/ChangePassword.vue')
+        },
+        {
+          path: 'printers',
+          name: 'Printers',
+          component: () => import('../views/Printers.vue')
+        },
+        {
+          path: 'print-jobs',
+          name: 'PrintJobs',
+          component: () => import('../views/PrintJobs.vue')
+        },
+        {
+          path: 'print-submit',
+          name: 'PrintSubmit',
+          component: () => import('../views/PrintSubmit.vue')
         }
       ]
     },
